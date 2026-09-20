@@ -229,7 +229,22 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   font-size:clamp(64px,11vw,132px);
   line-height:.85;
   color:var(--gold);
-  text-shadow:0 0 18px rgba(255,204,0,.55), 0 0 40px rgba(255,204,0,.3);
+  animation:glowPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(245,200,0,.4),
+      0 0 20px rgba(245,200,0,.2);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(245,200,0,.9),
+      0 0 40px rgba(245,200,0,.6),
+      0 0 60px rgba(245,200,0,.4),
+      0 0 80px rgba(245,200,0,.2);
+  }
 }
 .hero__number-tag{
   display:inline-flex;
@@ -281,6 +296,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   font-size:64px;
   color:var(--gold);
   line-height:1;
+  animation:glowPulse 3.5s ease-in-out infinite;
 }
 .price-box__value sup{ font-size:28px; top:-.6em; }
 .price-box__note{
