@@ -457,7 +457,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 /* variante "stories" — vídeo vertical 9:16 */
 .video-frame--stories{
   aspect-ratio:9/16;
-  max-width:380px;
+  max-width:240px;
 }
 
 /* ==========================================================================
@@ -510,7 +510,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   aspect-ratio:9/14;
   border-radius:var(--radius-lg);
   overflow:hidden;
-  border:1px solid var(--border-soft);
   position:relative;
   background:var(--bg-panel);
 }
@@ -1339,29 +1338,50 @@ footer p+p{ margin-top:6px; }
 
 <script>
 /* ==========================================================================
-   CTA FIXO — só aparece depois que o hero sai da tela
+   CTA FIXO — só aparece depois do hero, some ao rolar pra cima
    ========================================================================== */
 const stickyCta = document.querySelector('.sticky-cta');
 const heroEl = document.getElementById('topo');
 if (stickyCta && heroEl){
+  let pastHero = false;
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  const updateStickyCta = () => {
+    const scrollY = window.scrollY;
+    const scrollingUp = scrollY < lastScrollY - 2;
+    stickyCta.classList.toggle('is-visible', pastHero && !scrollingUp);
+    lastScrollY = scrollY;
+    ticking = false;
+  };
+
   const heroObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      stickyCta.classList.toggle('is-visible', !entry.isIntersecting);
-    });
+    entries.forEach(entry => { pastHero = !entry.isIntersecting; });
+    updateStickyCta();
   }, { threshold: 0 });
   heroObserver.observe(heroEl);
+
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateStickyCta);
+  }, { passive: true });
 }
 
 /* ==========================================================================
-   VÍDEOS — pausa automaticamente quando o vídeo sai da tela ao rolar
+   VÍDEOS — toca ao entrar na tela, pausa ao sair (rolando)
    ========================================================================== */
 const scrollVideos = document.querySelectorAll('.js-scroll-video');
 if (scrollVideos.length){
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) entry.target.pause();
+      if (entry.isIntersecting) {
+        entry.target.play().catch(() => {});
+      } else {
+        entry.target.pause();
+      }
     });
-  }, { threshold: 0.25 });
+  }, { threshold: 0.6 });
   scrollVideos.forEach(v => videoObserver.observe(v));
 }
 
