@@ -7,7 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Teko:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ==========================================================================
@@ -39,8 +39,8 @@
   --text-faint:    #6f6f6f;
 
   /* tipografia */
-  --font-display:  'Bebas Neue', 'Barlow Condensed', sans-serif; /* números/headline gigante */
-  --font-heading:  'Barlow Condensed', sans-serif;               /* títulos de seção */
+  --font-display:  'Bebas Neue', 'Teko', sans-serif;              /* números/headline gigante */
+  --font-heading:  'Teko', sans-serif;                            /* títulos de seção */
   --font-body:     'Barlow', sans-serif;                          /* texto corrido */
 
   /* utilidades */
@@ -787,9 +787,11 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .scarcity__label{
   font-family:var(--font-heading);
   font-weight:700; letter-spacing:.06em; text-transform:uppercase;
-  color:var(--gold);
+  color:var(--text);
   font-size:13.5px;
 }
+.scarcity__label strong{ color:#ff8a00; }
+.scarcity__label .scarcity__arrow{ color:#ff8a00; }
 .scarcity__sold{
   font-family:var(--font-heading);
   font-weight:700; letter-spacing:.06em; text-transform:uppercase;
@@ -804,7 +806,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .scarcity__fill{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,var(--gold-dim),var(--gold));
+  background:linear-gradient(90deg,#ff6a00,var(--gold));
   transition:width 3.5s cubic-bezier(.2,.8,.2,1);
 }
 .scarcity__fill.is-filled{ width:83%; }
@@ -1294,7 +1296,7 @@ footer p+p{ margin-top:6px; }
 
     <div class="scarcity" id="scarcity">
       <div class="scarcity__row">
-        <span class="scarcity__label">▼ Apenas 17% das vagas disponíveis</span>
+        <span class="scarcity__label"><span class="scarcity__arrow">▼</span> Apenas <strong>17%</strong> das vagas disponíveis</span>
         <span class="scarcity__sold">83% vendido</span>
       </div>
       <div class="scarcity__bar"><div class="scarcity__fill" id="scarcityFill"></div></div>
