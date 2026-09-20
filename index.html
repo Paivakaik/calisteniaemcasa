@@ -191,7 +191,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 
 .hero__badges{
   display:flex;
-  flex-wrap:wrap;
+  flex-direction:column;
+  align-items:flex-start;
   gap:10px;
   margin-bottom:22px;
 }
@@ -208,11 +209,19 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   background:var(--gold-soft);
   border:1px solid var(--gold-border);
   color:var(--gold);
+  border-radius:2px;
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%);
+  animation:badgeBlink 2.4s ease-in-out infinite;
 }
 .badge--outline{
   background:rgba(0,0,0,.4);
   border:1px solid var(--border-soft);
   color:var(--text-muted);
+}
+
+@keyframes badgeBlink{
+  0%, 100% { opacity:1; }
+  50% { opacity:.3; }
 }
 
 .hero__number{
