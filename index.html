@@ -229,6 +229,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   font-size:clamp(64px,11vw,132px);
   line-height:.85;
   color:var(--gold);
+  text-shadow:0 0 18px rgba(255,204,0,.55), 0 0 40px rgba(255,204,0,.3);
 }
 .hero__number-tag{
   display:inline-flex;
@@ -287,9 +288,21 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   letter-spacing:.05em;
   text-transform:uppercase;
   color:var(--text-dim);
-  margin:8px 0 20px;
+  margin-top:8px;
 }
 .price-box__note strong{ color:var(--text-muted); }
+.price-box__divider{
+  border:none;
+  border-top:1px solid var(--border-soft);
+  margin:14px 0;
+}
+.price-box__cycle{
+  font-size:12.5px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  font-weight:600;
+}
 
 .hero__trust{
   margin-top:18px;
@@ -867,7 +880,12 @@ footer p+p{ margin-top:6px; }
   left:0; right:0; bottom:0;
   z-index:50;
   display:none;
+  padding:12px 16px 14px;
+  background:var(--bg-darker);
+  transform:translateY(100%);
+  transition:transform .25s ease;
 }
+.sticky-cta.is-visible{ transform:translateY(0); }
 .sticky-cta__btn{
   display:flex;
   flex-direction:column;
@@ -879,7 +897,7 @@ footer p+p{ margin-top:6px; }
   background:var(--gold);
   color:#161008;
   text-align:center;
-  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  clip-path:polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
 }
 .sticky-cta__kicker{
   font-family:var(--font-heading);
@@ -896,7 +914,7 @@ footer p+p{ margin-top:6px; }
   letter-spacing:.01em;
   line-height:1.1;
 }
-@media (max-width:760px){ .sticky-cta{ display:block; } body{ padding-bottom:82px; } }
+@media (max-width:760px){ .sticky-cta{ display:block; } body{ padding-bottom:96px; } }
 </style>
 </head>
 <body>
@@ -913,7 +931,7 @@ footer p+p{ margin-top:6px; }
     <div>
       <div class="hero__badges">
         <span class="badge badge--gold">Calistenia Secreta</span>
-        <span class="badge badge--outline">Para homens e mulheres · Todos os níveis</span>
+        <span class="badge badge--outline">Para homens e mulheres  Todos os níveis</span>
       </div>
 
       <div class="hero__number">611 AULAS</div>
@@ -927,7 +945,9 @@ footer p+p{ margin-top:6px; }
       <div class="price-box">
         <div class="price-box__label">Tudo isso por apenas:</div>
         <div class="price-box__value"><sup>R$</sup> 10</div>
-        <div class="price-box__note">( menos de <strong>R$ 0,02</strong> por aula )<br>Uma vez • Acesso vitalício</div>
+        <div class="price-box__note">( menos de <strong>R$ 0,02</strong> por aula )</div>
+        <hr class="price-box__divider">
+        <div class="price-box__cycle" style="margin-bottom:20px;">Uma vez • Acesso vitalício</div>
         <a href="#planos" class="btn btn--gold btn--lg btn--arrow"><span>Começar a transformação agora</span><span class="btn__arrow">→</span></a>
       </div>
 
@@ -1339,6 +1359,20 @@ footer p+p{ margin-top:6px; }
 </div>
 
 <script>
+/* ==========================================================================
+   CTA FIXO — só aparece depois que o hero sai da tela
+   ========================================================================== */
+const stickyCta = document.querySelector('.sticky-cta');
+const heroEl = document.getElementById('topo');
+if (stickyCta && heroEl){
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      stickyCta.classList.toggle('is-visible', !entry.isIntersecting);
+    });
+  }, { threshold: 0 });
+  heroObserver.observe(heroEl);
+}
+
 /* ==========================================================================
    VÍDEOS — pausa automaticamente quando o vídeo sai da tela ao rolar
    ========================================================================== */
