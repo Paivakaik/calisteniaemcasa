@@ -431,6 +431,12 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   color:var(--text-faint);
 }
 
+/* variante "stories" — vídeo vertical 9:16 */
+.video-frame--stories{
+  aspect-ratio:9/16;
+  max-width:380px;
+}
+
 /* ==========================================================================
    5. MÉTODO — cards de 3 colunas
    ========================================================================== */
@@ -952,8 +958,7 @@ footer p+p{ margin-top:6px; }
     <div style="margin-top:56px;">
       <div class="video-kicker">Cada história aqui começou igual à sua: no zero</div>
       <div class="video-frame" id="videoFrame1">
-        <video class="video-frame__media" controls playsinline preload="metadata"
-               poster="assets/video-1-poster.jpg"
+        <video class="video-frame__media js-scroll-video" controls playsinline preload="metadata"
                onloadeddata="this.closest('.video-frame').classList.add('has-video')">
           <source src="assets/video-1.mp4" type="video/mp4">
         </video>
@@ -1023,11 +1028,10 @@ footer p+p{ margin-top:6px; }
       <p class="section-subtitle">A transformação real — e como ela acontece. Não é só sobre treino, é sobre um ambiente onde é impossível desistir.</p>
     </div>
 
-    <!-- VÍDEO 2 — coloque o vídeo do aluno em /assets e ajuste o <source> abaixo -->
+    <!-- VÍDEO 2 — formato stories (vertical 9:16) -->
     <div style="margin-bottom:40px;">
-      <div class="video-frame" id="videoFrame2">
-        <video class="video-frame__media" controls playsinline preload="metadata"
-               poster="assets/video-2-poster.jpg"
+      <div class="video-frame video-frame--stories" id="videoFrame2">
+        <video class="video-frame__media js-scroll-video" controls playsinline preload="metadata"
                onloadeddata="this.closest('.video-frame').classList.add('has-video')">
           <source src="assets/video-2.mp4" type="video/mp4">
         </video>
@@ -1299,6 +1303,19 @@ footer p+p{ margin-top:6px; }
 </div>
 
 <script>
+/* ==========================================================================
+   VÍDEOS — pausa automaticamente quando o vídeo sai da tela ao rolar
+   ========================================================================== */
+const scrollVideos = document.querySelectorAll('.js-scroll-video');
+if (scrollVideos.length){
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) entry.target.pause();
+    });
+  }, { threshold: 0.25 });
+  scrollVideos.forEach(v => videoObserver.observe(v));
+}
+
 /* ==========================================================================
    CARROSSEL "ANTES E DEPOIS"
    troque os itens de SLIDES para usar suas próprias fotos/depoimentos
