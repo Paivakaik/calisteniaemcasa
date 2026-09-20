@@ -99,6 +99,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   font-size:clamp(34px,9vw,46px);
   line-height:1.08;
   letter-spacing:.01em;
+  text-wrap:balance;
+  word-break:normal;
 }
 .section-title em{
   font-style:normal;
@@ -108,6 +110,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   color:var(--text-muted);
   font-size:17px;
   max-width:640px;
+  text-wrap:pretty;
+  line-height:1.5;
 }
 .section-head{
   text-align:center;
@@ -1196,6 +1200,226 @@ footer p+p{ margin-top:6px; }
 }
 @media (prefers-reduced-motion: reduce){
   .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ==========================================================================
+   OTIMIZAÇÃO MOBILE — Separação nítida de blocos e quebras de texto claras
+   ========================================================================== */
+h1, h2, h3, .section-title, .hero__headline, .results-main-title, .method-title,
+.pain-title, .before-after-title, .bonus-card__title, .plan__name, .faq-item__q{
+  text-wrap:balance;
+  word-break:normal;
+}
+p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
+  text-wrap:pretty;
+}
+
+@media (max-width:768px){
+  /* 1. SEPARAÇÃO CLARA ENTRE BLOCOS */
+  .section{
+    padding:58px 0;
+    position:relative;
+  }
+  .section + .section{
+    border-top:1px solid rgba(255,204,0,.18);
+    box-shadow:0 -1px 16px rgba(255,204,0,.04);
+  }
+  .section--dark{
+    background:#0a0805;
+  }
+  .section-head{
+    margin-bottom:34px;
+    gap:10px;
+  }
+
+  /* Linha divisória da dobra inicial para o segundo bloco */
+  .headline-divider{
+    margin:0 auto 30px;
+    height:2px;
+    box-shadow:0 0 12px rgba(255,204,0,.6);
+  }
+
+  /* 2. QUEBRAS DE TEXTO E TIPOGRAFIA NO MOBILE */
+  .hero{
+    min-height:auto;
+    padding:44px 0 52px;
+  }
+  .hero__badges{
+    gap:8px;
+    margin-bottom:16px;
+  }
+  .badge{
+    font-size:11.5px;
+    padding:5px 12px;
+    letter-spacing:.06em;
+  }
+  .hero__number{
+    font-size:clamp(64px,18vw,88px);
+    line-height:.9;
+  }
+  .hero__number-tag{
+    margin:8px 0 16px;
+    font-size:13px;
+    letter-spacing:.12em;
+  }
+  .hero__headline{
+    font-size:clamp(24px,6.8vw,34px);
+    line-height:1.12;
+    margin-bottom:24px;
+    letter-spacing:.01em;
+  }
+  .price-box{
+    padding:18px 20px 16px;
+    max-width:100%;
+  }
+  .price-box__value{
+    font-size:52px;
+  }
+  .price-box__note{
+    font-size:11px;
+    line-height:1.25;
+  }
+  .price-box__cycle{
+    font-size:11.5px;
+    margin-top:10px;
+  }
+  .hero__btn{
+    margin-top:12px;
+    max-width:100%;
+  }
+  .btn--lg{
+    padding:16px 20px;
+    font-size:16px;
+  }
+  .hero__trust{
+    font-size:12px;
+    margin-top:12px;
+    max-width:100%;
+  }
+
+  /* Títulos e subtítulos das seções */
+  .section-title{
+    font-size:clamp(28px,7.8vw,38px);
+    line-height:1.1;
+  }
+  .section-subtitle{
+    font-size:14.5px;
+    line-height:1.48;
+  }
+
+  /* Seção Comparativo */
+  .compare{
+    gap:18px;
+  }
+  .compare-card{
+    padding:24px 20px;
+    border:1px solid rgba(255,255,255,.12);
+  }
+  .compare-card--bad{
+    border:1px solid rgba(212,0,0,.45);
+  }
+  .compare-card--good{
+    border:1.5px solid var(--gold);
+    box-shadow:0 0 20px rgba(255,204,0,.15);
+  }
+  .compare-card__title{
+    font-size:22px;
+  }
+  .compare-card__list li{
+    font-size:14px;
+    line-height:1.35;
+  }
+
+  /* Seção Pain e Método */
+  .pain{
+    padding-top:28px;
+  }
+  .pain-title{
+    font-size:clamp(26px,7vw,36px);
+    line-height:1.1;
+    margin-bottom:16px;
+  }
+  .pain-subtitle{
+    font-size:14.5px;
+    line-height:1.45;
+  }
+  .method-title{
+    font-size:clamp(28px,7.5vw,40px);
+    line-height:1.1;
+    margin-bottom:32px;
+  }
+  .method-card{
+    padding:24px 20px;
+    margin-bottom:16px;
+    border:1px solid rgba(255,204,0,.28);
+  }
+  .method-card__title{
+    font-size:22px;
+  }
+  .method-card__list li{
+    font-size:14px;
+    line-height:1.35;
+  }
+
+  /* Seção Resultados Reais e Antes e Depois */
+  .results-main-title{
+    font-size:clamp(30px,8vw,44px);
+    line-height:1.05;
+    margin:6px 0 10px;
+  }
+  .results-subtitle{
+    font-size:13px;
+    line-height:1.42;
+    margin-bottom:24px;
+    padding:0 8px;
+  }
+  .before-after-head{
+    margin-bottom:22px;
+  }
+  .before-after-title{
+    font-size:clamp(28px,7.2vw,38px);
+    margin-bottom:4px;
+  }
+  .before-after-sub{
+    font-size:11.5px;
+    letter-spacing:.08em;
+  }
+
+  /* Cards de bônus e planos */
+  .bonus-card{
+    padding:22px 18px 22px 22px;
+    margin-bottom:14px;
+    border-left:3px solid var(--gold);
+    border-top:1px solid rgba(255,255,255,.07);
+    border-right:1px solid rgba(255,255,255,.05);
+    border-bottom:1px solid rgba(255,255,255,.05);
+  }
+  .bonus-card__title{
+    font-size:20px;
+  }
+  .bonus-card__text{
+    font-size:13.5px;
+    line-height:1.4;
+  }
+  .included__item{
+    padding:13px 15px;
+    font-size:14px;
+    gap:10px;
+  }
+  .faq-item{
+    margin-bottom:12px;
+    border:1px solid rgba(255,204,0,.18);
+  }
+  .faq-item__q{
+    font-size:16px;
+    padding:16px 18px;
+    line-height:1.25;
+  }
+  .faq-item__a-inner{
+    font-size:14px;
+    line-height:1.45;
+    padding:0 18px 16px;
+  }
 }
 </style>
 </head>
