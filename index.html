@@ -691,9 +691,9 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 }
 
 .plan{
-  background:var(--bg-panel);
+  background:var(--bg-darker);
   border:1px solid var(--border-soft);
-  border-radius:var(--radius-lg);
+  border-bottom:3px solid var(--gold-border);
   padding:30px 26px;
   display:flex;
   flex-direction:column;
@@ -710,7 +710,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 }
 .plan--featured{
   border:2px solid var(--gold);
-  background:linear-gradient(180deg, rgba(255,204,0,.07), var(--bg-panel) 40%);
+  border-bottom:3px solid var(--gold);
+  background:#2b2013;
 }
 @media (min-width:820px){ .plan--featured{ transform:scale(1.02); } }
 
@@ -749,11 +750,11 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .plan__name{
   font-family:var(--font-heading);
   font-weight:800; text-transform:uppercase; font-size:20px;
-  color:var(--gold);
+  color:var(--text);
 }
 .plan__prices{ display:flex; align-items:baseline; gap:10px; margin-top:4px; }
 .plan__old{ color:var(--text-faint); text-decoration:line-through; font-size:16px; }
-.plan__price{ font-family:var(--font-display); font-size:42px; color:var(--text); line-height:1; }
+.plan__price{ font-family:var(--font-display); font-size:42px; color:var(--gold); line-height:1; }
 .plan__cycle{ font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim); }
 .plan__save{
   display:inline-block;
@@ -761,14 +762,33 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   color:var(--gold);
 }
 .plan__list{ display:flex; flex-direction:column; gap:9px; font-size:14px; color:var(--text-muted); margin:6px 0; }
-.plan__list li{ display:flex; gap:8px; }
-.plan__list li::before{ content:'✓'; color:var(--gold); font-weight:800; }
+.plan__list li{ display:flex; align-items:flex-start; gap:8px; }
+.plan__list li::before{
+  content:'✓';
+  flex:none;
+  width:16px; height:16px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--gold);
+  color:#161008;
+  font-size:11px; font-weight:900;
+  margin-top:2px;
+}
 .plan__foot{
   margin-top:auto;
-  display:flex; flex-direction:column; gap:10px; align-items:center;
+  display:flex; flex-direction:column; gap:10px;
 }
+.plan__support{
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--bg-panel);
+  border:1px solid var(--border-soft);
+  padding:8px 14px;
+  font-family:var(--font-heading);
+  font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--gold);
+}
+.plan__support-icons{ display:flex; gap:8px; color:var(--text-dim); font-size:13px; }
 .plan__badges{
-  display:flex; gap:14px;
+  display:flex; justify-content:center; gap:14px;
   font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-faint);
 }
 
@@ -1238,7 +1258,8 @@ footer p+p{ margin-top:6px; }
           <li>5 bônus exclusivos</li>
         </ul>
         <div class="plan__foot">
-          <a href="#" class="btn btn--gold btn--sm" style="width:100%">Quero começar agora</a>
+          <div class="plan__support"><span>Suporte</span><span class="plan__support-icons">✉️</span></div>
+          <a href="#" class="btn btn--gold btn--sm btn--arrow" style="width:100%"><span>Quero começar agora</span><span class="btn__arrow">→</span></a>
           <div class="plan__badges"><span>Seguro</span><span>Pix / Cartão</span></div>
         </div>
       </div>
@@ -1262,7 +1283,8 @@ footer p+p{ margin-top:6px; }
           <li>Pagamento único, sem mensalidades</li>
         </ul>
         <div class="plan__foot">
-          <a href="#" class="btn btn--gold btn--sm" style="width:100%">Quero o acesso total</a>
+          <div class="plan__support"><span>Suporte</span><span class="plan__support-icons">✉️ 📷</span></div>
+          <a href="#" class="btn btn--gold btn--sm btn--arrow" style="width:100%"><span>Quero o acesso total</span><span class="btn__arrow">→</span></a>
           <div class="plan__badges"><span>Seguro</span><span>Pix / Cartão</span></div>
         </div>
       </div>
@@ -1286,8 +1308,9 @@ footer p+p{ margin-top:6px; }
           <li>Treine pelo celular, tablet ou computador</li>
         </ul>
         <div class="plan__foot">
-          <a href="#" class="btn btn--gold btn--sm" style="width:100%">Quero o pack completo</a>
-          <div class="plan__badges"><span>Suporte prioritário</span><span>Pix / Cartão</span></div>
+          <div class="plan__support"><span>Suporte prioritário</span><span class="plan__support-icons">✉️ 📷 💬</span></div>
+          <a href="#" class="btn btn--gold btn--sm btn--arrow" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
+          <div class="plan__badges"><span>Seguro</span><span>Pix / Cartão</span></div>
         </div>
       </div>
     </div>
