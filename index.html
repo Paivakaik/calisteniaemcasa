@@ -334,6 +334,16 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 /* ==========================================================================
    4. ACADEMIA VS CALISTENIA SECRETA
    ========================================================================== */
+.headline-divider{
+  width:100%;
+  max-width:var(--container);
+  height:2px;
+  margin:0 auto 48px;
+  background:linear-gradient(90deg, transparent 0%, var(--gold) 15%, var(--gold) 85%, transparent 100%);
+  box-shadow:0 0 12px rgba(255,204,0,.5), 0 0 4px rgba(255,204,0,.8);
+  border-radius:2px;
+}
+
 .compare{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -1229,8 +1239,9 @@ footer p+p{ margin-top:6px; }
 <!-- ==========================================================================
      ACADEMIA VS CALISTENIA SECRETA
      ========================================================================== -->
-<section class="section">
+<section class="section" style="padding-top:48px;">
   <div class="container">
+    <div class="headline-divider"></div>
     <div class="section-head">
       <span class="eyebrow">Comparação honesta</span>
       <h2 class="section-title">Academia vs <em>Calistenia Secreta</em></h2>
