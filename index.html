@@ -907,12 +907,12 @@ button{ font-family:inherit; cursor:pointer; border:none; }
    9. PLANOS / PREÇOS
    ========================================================================== */
 .plans{
-  display:grid;
-  align-items:stretch;
-
   /* mobile (padrão): trilho horizontal com scroll-snap, igual ao site original —
-     cada card ocupa a maior parte da tela e deixa o próximo "espiando" na lateral */
+     cada card ocupa a maior parte da tela e deixa o próximo "espiando" na lateral.
+     align-items:flex-start evita que um card curto (ex: Starter) estique até a
+     altura do mais longo (Premium), o que deixaria a altura enorme no mobile. */
   display:flex;
+  align-items:flex-start;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
   gap:16px;
@@ -926,6 +926,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 @media (min-width:820px){
   .plans{
     display:grid;
+    align-items:stretch;
     grid-template-columns:repeat(3,minmax(0,1fr));
     overflow-x:visible;
     padding:4px 0 0;
@@ -937,10 +938,10 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   background:var(--bg-darker);
   border:1px solid var(--border-soft);
   border-bottom:3px solid var(--gold-border);
-  padding:38px 20px 22px;
+  padding:36px 22px 28px;
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:14px;
   position:relative;
 
   /* mobile: largura fixa com scroll-snap; desktop (grid) some essas regras */
@@ -949,14 +950,19 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   scroll-snap-align:center;
 }
 @media (min-width:820px){
-  .plan{ flex:initial; max-width:none; scroll-snap-align:none; padding:34px 26px 30px; gap:16px; }
+  .plan{ flex:initial; max-width:none; scroll-snap-align:none; padding:44px 30px 34px; gap:18px; }
 }
 .plan--featured{
   border:2px solid var(--gold);
   border-bottom:3px solid var(--gold);
   background:#2b2013;
+  box-shadow:0 20px 45px -18px rgba(255,204,0,.35);
 }
 @media (min-width:820px){ .plan--featured{ transform:scale(1.02); } }
+.plan--premium{
+  border-color:rgba(255,204,0,.4);
+  box-shadow:0 18px 40px -20px rgba(0,0,0,.6);
+}
 
 /* pontinhos indicando o card ativo no carrossel (só aparece no mobile) */
 .plans-dots{
@@ -992,27 +998,21 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   border-bottom:1px solid var(--border-soft);
 }
 
-.plan__tag{
-  position:absolute; top:0; right:0;
-  font-family:var(--font-heading);
-  font-weight:800; font-size:11px; letter-spacing:.08em;
-  padding:8px 16px;
-  white-space:nowrap;
-  clip-path:polygon(0 0,100% 0,100% 100%,10px 100%,0 calc(100% - 10px));
-  background:var(--bg-darker);
-  color:var(--text-muted);
-  border:1px solid var(--border-soft);
-}
-.plan__tag--gold{ background:var(--gold); color:#161008; border:none; }
-.plan__tag--white{ background:#fff; color:#161008; border:none; }
-.plan__tier{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); }
 .plan__name{
   font-family:var(--font-heading);
-  font-weight:800; text-transform:uppercase; font-size:17px;
-  color:var(--text);
+  font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+  font-size:24px; line-height:1;
+  color:var(--gold);
 }
-@media (min-width:820px){ .plan__name{ font-size:20px; } }
-.plan__prices{ display:flex; align-items:baseline; gap:10px; margin-top:4px; }
+@media (min-width:820px){ .plan__name{ font-size:28px; } }
+.plan__product{
+  font-size:13px;
+  color:var(--text-muted);
+  letter-spacing:.01em;
+  margin-top:-6px;
+}
+@media (min-width:820px){ .plan__product{ font-size:14.5px; } }
+.plan__prices{ display:flex; align-items:baseline; gap:10px; margin-top:6px; }
 .plan__old{
   color:rgba(255,255,255,.3);
   text-decoration:line-through;
@@ -1022,11 +1022,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .plan__price{ font-family:var(--font-display); font-size:34px; color:var(--gold); line-height:1; }
 @media (min-width:820px){ .plan__price{ font-size:42px; } }
 .plan__cycle{ font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim); }
-.plan__save{
-  display:inline-block;
-  font-size:12px; font-weight:700;
-  color:#ff6600;
-}
 .plan__inherits{
   font-family:var(--font-heading);
   font-weight:700;
@@ -1036,8 +1031,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   margin-top:2px;
 }
 .plan__inherits strong{ color:var(--text); font-weight:800; }
-.plan__list{ display:flex; flex-direction:column; gap:7px; font-size:13px; color:var(--text-muted); margin:6px 0; }
-@media (min-width:820px){ .plan__list{ gap:9px; font-size:14px; } }
+.plan__list{ display:flex; flex-direction:column; gap:9px; font-size:13px; color:var(--text-muted); margin:6px 0; }
+@media (min-width:820px){ .plan__list{ gap:11px; font-size:14px; } }
 .plan__list li{ display:flex; align-items:flex-start; gap:8px; }
 .plan__list li::before{
   content:'✓';
@@ -1049,24 +1044,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   font-size:11px; font-weight:900;
   margin-top:2px;
 }
-.plan__foot{
-  margin-top:auto;
-  display:flex; flex-direction:column; gap:10px;
-}
-.plan__support{
-  display:flex; align-items:center; justify-content:space-between;
-  background:var(--bg-panel);
-  border:1px solid var(--border-soft);
-  padding:8px 14px;
-  font-family:var(--font-heading);
-  font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--gold);
-}
-.plan__support-icons{ display:flex; gap:8px; color:var(--text-dim); font-size:13px; }
-.plan__badges{
-  display:flex; justify-content:center; gap:14px;
-  font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-faint);
-}
+.plan__cta{ margin-top:auto; }
 
 .scarcity{
   max-width:640px;
@@ -1985,17 +1963,15 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
     </div>
 
     <div class="plans" id="plansTrack">
-      <!-- Plano básico -->
+      <!-- Starter -->
       <div class="plan">
-        <span class="plan__tag">Básico</span>
-        <div class="plan__tier">Plano essencial</div>
-        <div class="plan__name">Calistenia Secreta</div>
+        <div class="plan__name">Starter</div>
+        <div class="plan__product">Calistenia Secreta</div>
         <div class="plan__prices">
           <span class="plan__old">R$ 37</span>
           <span class="plan__price">R$ 10</span>
         </div>
-        <div class="plan__cycle">Vitalício</div>
-        <span class="plan__save">Economize R$ 27</span>
+        <div class="plan__cycle">Acesso vitalício</div>
         <ul class="plan__list">
           <li>611 aulas em vídeo HD</li>
           <li>Módulo do zero ao avançado</li>
@@ -2004,50 +1980,38 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
           <li>Treine pelo celular, tablet ou computador</li>
           <li>Garantia de 15 dias</li>
         </ul>
-        <div class="plan__foot">
-          <div class="plan__support"><span>Suporte</span><span class="plan__support-icons">✉️</span></div>
-          <a href="#" id="plan10Cta" class="btn btn--gold btn--sm btn--arrow" style="width:100%"><span>Quero começar agora</span><span class="btn__arrow">→</span></a>
-          <div class="plan__badges"><span>Seguro</span><span>Pix / Cartão</span></div>
-        </div>
+        <a href="#" id="plan10Cta" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero começar agora</span><span class="btn__arrow">→</span></a>
       </div>
 
-      <!-- Plano recomendado -->
+      <!-- Growth -->
       <div class="plan plan--featured">
-        <span class="plan__tag plan__tag--gold">Recomendado</span>
-        <div class="plan__tier">Oferta elite</div>
-        <div class="plan__name">Calistenia + SecretaFlix</div>
+        <div class="plan__name">Growth</div>
+        <div class="plan__product">Calistenia + SecretaFlix</div>
         <div class="plan__prices">
           <span class="plan__old">R$ 67</span>
           <span class="plan__price">R$ 19,90</span>
         </div>
-        <div class="plan__cycle">Vitalício</div>
-        <span class="plan__save">Economize R$ 47,10 (70% off)</span>
-        <div class="plan__inherits">Tudo do <strong>Calistenia Secreta</strong> +</div>
+        <div class="plan__cycle">Acesso vitalício</div>
+        <div class="plan__inherits">Tudo do <strong>Starter</strong> +</div>
         <ul class="plan__list">
           <li>Dezenas de cursos fitness</li>
           <li>SecretaFlix: plataforma estilo Netflix</li>
           <li>Cursos novos adicionados constantemente</li>
           <li>Conteúdos reunidos em um só lugar</li>
         </ul>
-        <div class="plan__foot">
-          <div class="plan__support"><span>Suporte</span><span class="plan__support-icons">✉️ 📷</span></div>
-          <a href="https://lastlink.com/p/C51A0C3E4/checkout-payment/" class="btn btn--gold btn--sm btn--arrow" style="width:100%"><span>Quero o acesso total</span><span class="btn__arrow">→</span></a>
-          <div class="plan__badges"><span>Seguro</span><span>Pix / Cartão</span></div>
-        </div>
+        <a href="https://lastlink.com/p/C51A0C3E4/checkout-payment/" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o acesso total</span><span class="btn__arrow">→</span></a>
       </div>
 
-      <!-- Plano super recomendado -->
-      <div class="plan">
-        <span class="plan__tag plan__tag--white">Super recomendada</span>
-        <div class="plan__tier">Super recomendada · Melhor valor</div>
-        <div class="plan__name">Projeto Shape de Aço</div>
+      <!-- Premium -->
+      <div class="plan plan--premium">
+        <div class="plan__name">Premium</div>
+        <div class="plan__product">Projeto Shape de Aço</div>
         <div class="plan__prices">
           <span class="plan__old">R$ 147</span>
           <span class="plan__price">R$ 39,90</span>
         </div>
-        <div class="plan__cycle">Vitalício</div>
-        <span class="plan__save">Economize R$ 107,10 (73% off)</span>
-        <div class="plan__inherits">Tudo do <strong>Calistenia + SecretaFlix</strong> +</div>
+        <div class="plan__cycle">Acesso vitalício</div>
+        <div class="plan__inherits">Tudo do <strong>Growth</strong> +</div>
         <ul class="plan__list">
           <li>Calisteniapp Premium</li>
           <li>Seu personal de calistenia no bolso</li>
@@ -2060,11 +2024,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
           <li>Acesso a novos conteúdos</li>
           <li>Tudo em um único lugar</li>
         </ul>
-        <div class="plan__foot">
-          <div class="plan__support"><span>Suporte exclusivo</span><span class="plan__support-icons"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.825.738 5.48 2.025 7.788L0 32l8.425-2.006A15.938 15.938 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0z" fill="#25D366"></path><path d="M22.86 19.34c-.38-.19-2.23-1.1-2.58-1.23-.35-.13-.6-.19-.85.19-.25.38-.97 1.23-1.19 1.48-.22.25-.44.28-.82.09-.38-.19-1.59-.59-3.03-1.87-1.12-1-1.88-2.23-2.1-2.61-.22-.38-.02-.58.17-.77.17-.17.38-.44.57-.66.19-.22.25-.38.38-.63.13-.25.06-.47-.03-.66-.09-.19-.85-2.05-1.16-2.8-.31-.75-.63-.64-.85-.65h-.73c-.25 0-.66.09-1.01.47-.35.38-1.33 1.3-1.33 3.16s1.36 3.66 1.55 3.91c.19.25 2.66 4.07 6.45 5.71.9.39 1.61.62 2.16.8.9.29 1.73.25 2.38.15.73-.11 2.23-.91 2.55-1.8.31-.88.31-1.64.22-1.8-.09-.16-.35-.25-.73-.44z" fill="#fff"></path></svg></span></div>
-          <a href="https://lastlink.com/p/C9E6CBB97/checkout-payment/" class="btn btn--gold btn--sm btn--arrow" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
-          <div class="plan__badges"><span>Seguro</span><span>Pix / Cartão</span></div>
-        </div>
+        <a href="https://lastlink.com/p/C9E6CBB97/checkout-payment/" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
       </div>
     </div>
 
@@ -2161,7 +2121,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
 
     <span class="upsell__badge">🔥 Oferta exclusiva</span>
     <h3 class="upsell__title" id="upsellTitle">Espere! Antes de continuar...</h3>
-    <p class="upsell__subtitle">Você acabou de escolher o <strong>Calistenia Secreta por R$10</strong>. Mas liberamos uma condição especial para você adicionar o <strong>SecretaFlix</strong> por apenas R$4,90 a mais.</p>
+    <p class="upsell__subtitle">Você acabou de escolher o <strong>STARTER</strong>. Mas liberamos uma condição especial para você subir para o <strong>GROWTH</strong> por apenas R$4,90 a mais.</p>
 
     <div class="upsell__price">
       <span class="upsell__price-old">De R$19,90</span>
@@ -2170,7 +2130,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
       <span class="upsell__price-save">Você economiza R$5,00</span>
     </div>
 
-    <div class="upsell__inherits">Tudo do <strong>Calistenia Secreta</strong> +</div>
+    <div class="upsell__inherits">Tudo do <strong>Starter</strong> +</div>
     <ul class="upsell__list">
       <li>Dezenas de cursos fitness</li>
       <li>SecretaFlix — sua plataforma de conteúdo fitness</li>
@@ -2180,12 +2140,12 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
       <li>Pagamento único, sem mensalidade</li>
     </ul>
 
-    <p class="upsell__pitch">Por apenas R$4,90 a mais, você não fica limitado somente ao Calistenia Secreta. Você passa a ter acesso a uma biblioteca muito maior de conteúdos para continuar treinando, aprendendo e explorando novos métodos.</p>
+    <p class="upsell__pitch">Por apenas R$4,90 a mais, você pode transformar seu STARTER em GROWTH e ter acesso a uma biblioteca muito maior de conteúdos.</p>
 
-    <a href="https://lastlink.com/p/C898CE562/checkout-payment/" class="btn btn--gold btn--lg btn--arrow upsell__cta"><span>🔥 Fazer upgrade por R$4,90 a mais</span><span class="btn__arrow">→</span></a>
-    <p class="upsell__micro">Sim, quero o Calistenia + SecretaFlix por apenas R$14,90</p>
+    <a href="https://lastlink.com/p/C898CE562/checkout-payment/" class="btn btn--gold btn--lg btn--arrow upsell__cta"><span>🔥 Fazer upgrade para GROWTH por R$4,90 a mais</span><span class="btn__arrow">→</span></a>
+    <p class="upsell__micro">Sim, quero o GROWTH por apenas R$14,90</p>
 
-    <a href="https://lastlink.com/p/C9C726DE0/" class="upsell__decline">Não, obrigado. Quero continuar apenas com o Calistenia Secreta por R$10</a>
+    <a href="https://lastlink.com/p/C9C726DE0/" class="upsell__decline">Não, obrigado. Quero continuar com o STARTER por R$10</a>
   </div>
 </div>
 
