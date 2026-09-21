@@ -459,6 +459,33 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .video-frame__corner--tl{ top:16px; left:16px; border-top:4px solid var(--gold); border-left:4px solid var(--gold); }
 .video-frame__corner--br{ bottom:16px; right:16px; border-bottom:4px solid var(--gold); border-right:4px solid var(--gold); }
 
+.video-frame__play{
+  position:absolute;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.35);
+  transition:opacity .2s ease;
+}
+.video-frame__play-circle{
+  width:76px; height:76px;
+  border-radius:50%;
+  background:var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 30px rgba(255,204,0,.5);
+}
+.video-frame__play-circle::after{
+  content:'';
+  width:0; height:0;
+  margin-left:6px;
+  border-style:solid;
+  border-width:16px 0 16px 26px;
+  border-color:transparent transparent transparent #161008;
+}
+.video-frame.is-playing .video-frame__play{ opacity:0; pointer-events:none; }
+
 /* variante "stories" — vídeo vertical 9:16 formato stories compacto */
 .video-frame--stories{
   aspect-ratio:9/16;
@@ -1507,6 +1534,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <video class="video-frame__media js-scroll-video" playsinline preload="metadata">
           <source src="assets/video-1.mp4" type="video/mp4">
         </video>
+        <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
         <div class="video-frame__corner video-frame__corner--tl"></div>
         <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
@@ -1598,6 +1626,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <video class="video-frame__media js-scroll-video" playsinline preload="metadata">
           <source src="assets/video-2.mp4" type="video/mp4">
         </video>
+        <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
         <div class="video-frame__corner video-frame__corner--tl"></div>
         <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
@@ -1929,37 +1958,32 @@ if (stickyCta && heroEl){
 }
 
 /* ==========================================================================
-   VÍDEOS — toca ao entrar na tela, pausa ao sair (rolando)
+   VÍDEOS — comeca pausado, so toca quando o usuario aperta o play
+   (com som ligado); pausa sozinho se o usuario rolar pra longe dele.
    ========================================================================== */
 const scrollVideos = document.querySelectorAll('.js-scroll-video');
 if (scrollVideos.length){
-  const tryPlay = (video) => {
-    const attempt = video.play();
-    if (attempt && attempt.catch) {
-      attempt.catch(() => {
-        // navegador bloqueou autoplay com som — tenta mudo, que é sempre permitido
-        video.muted = true;
-        video.play().catch(() => {});
-      });
-    }
-  };
-  const videoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        tryPlay(entry.target);
-      } else {
-        entry.target.pause();
-      }
-    });
-  }, { threshold: 0.6 });
   scrollVideos.forEach(v => {
+    const frame = v.closest('.video-frame');
+
+    const syncState = () => frame.classList.toggle('is-playing', !v.paused);
+    v.addEventListener('play', syncState);
+    v.addEventListener('pause', syncState);
+    v.addEventListener('ended', syncState);
+
+    const toggle = () => {
+      if (v.paused) v.play().catch(() => {});
+      else v.pause();
+    };
+    v.addEventListener('click', toggle);
+    const playBtn = frame.querySelector('.video-frame__play');
+    if (playBtn) playBtn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+
+    // pausa sozinho se sair bastante da tela (nao toca sozinho ao voltar)
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (!entry.isIntersecting) v.pause(); });
+    }, { threshold: 0.1 });
     videoObserver.observe(v);
-    // sem controles nativos: um toque no vídeo destrava o som (gesto do
-    // usuario) e alterna play/pause, sem mostrar barra de controles
-    v.addEventListener('click', () => {
-      if (v.muted) v.muted = false;
-      if (v.paused) v.play().catch(() => {}); else v.pause();
-    });
   });
 }
 
