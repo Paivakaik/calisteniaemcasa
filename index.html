@@ -969,7 +969,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   display:flex;
   justify-content:center;
   gap:8px;
-  margin-top:6px;
+  margin-bottom:16px;
 }
 @media (min-width:820px){ .plans-dots{ display:none; } }
 .plans-dots__dot{
@@ -1625,11 +1625,11 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
   margin-top:18px;
   padding:10px;
   font-size:13px;
-  color:#6a5d42;
+  color:#c81e1e;
   text-decoration:underline;
   text-underline-offset:3px;
 }
-.upsell__decline:hover{ color:#241d10; }
+.upsell__decline:hover{ color:#9c1414; }
 
 @media (max-width:480px){
   .upsell__modal{ padding:26px 20px 22px; border-radius:16px; }
@@ -1962,6 +1962,8 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
       <div class="scarcity__note">O conteúdo é liberado imediatamente após o pagamento.</div>
     </div>
 
+    <div class="plans-dots" id="plansDots"></div>
+
     <div class="plans" id="plansTrack">
       <!-- Starter -->
       <div class="plan">
@@ -2027,8 +2029,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <a href="https://lastlink.com/p/C9E6CBB97/checkout-payment/" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
       </div>
     </div>
-
-    <div class="plans-dots" id="plansDots"></div>
 
     <div class="plans-note">Pagamento único • Sem mensalidades • Acesso vitalício</div>
   </div>
