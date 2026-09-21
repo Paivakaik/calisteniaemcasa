@@ -304,7 +304,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   line-height:1;
   animation:glowPulse 3.5s ease-in-out infinite;
 }
-.price-box__value sup{ font-size:28px; top:-.6em; }
+.price-box__value span{ font-size:1em; }
 .price-box__note{
   font-size:11.5px;
   letter-spacing:.04em;
@@ -394,7 +394,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .compare-card--bad .compare-card__title{ color:var(--red); }
 .compare-card--good .compare-card__title{
   color:var(--gold);
-  animation:glowPulse 3.5s ease-in-out infinite;
 }
 
 .compare-card__list{ display:flex; flex-direction:column; gap:10px; font-size:15px; color:var(--text-muted); }
@@ -888,19 +887,19 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   background:var(--bg-darker);
   border:1px solid var(--border-soft);
   border-bottom:3px solid var(--gold-border);
-  padding:30px 26px;
+  padding:22px 20px;
   display:flex;
   flex-direction:column;
-  gap:16px;
+  gap:12px;
   position:relative;
 
   /* mobile: largura fixa com scroll-snap; desktop (grid) some essas regras */
-  flex:0 0 84%;
-  max-width:360px;
+  flex:0 0 72%;
+  max-width:280px;
   scroll-snap-align:center;
 }
 @media (min-width:820px){
-  .plan{ flex:initial; max-width:none; scroll-snap-align:none; }
+  .plan{ flex:initial; max-width:none; scroll-snap-align:none; padding:30px 26px; gap:16px; }
 }
 .plan--featured{
   border:2px solid var(--gold);
@@ -943,9 +942,10 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 .plan__tier{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); }
 .plan__name{
   font-family:var(--font-heading);
-  font-weight:800; text-transform:uppercase; font-size:20px;
+  font-weight:800; text-transform:uppercase; font-size:17px;
   color:var(--text);
 }
+@media (min-width:820px){ .plan__name{ font-size:20px; } }
 .plan__prices{ display:flex; align-items:baseline; gap:10px; margin-top:4px; }
 .plan__old{
   color:rgba(255,255,255,.3);
@@ -953,14 +953,16 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   text-decoration-color:rgba(255,102,0,.6);
   font-size:16px;
 }
-.plan__price{ font-family:var(--font-display); font-size:42px; color:var(--gold); line-height:1; }
+.plan__price{ font-family:var(--font-display); font-size:34px; color:var(--gold); line-height:1; }
+@media (min-width:820px){ .plan__price{ font-size:42px; } }
 .plan__cycle{ font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim); }
 .plan__save{
   display:inline-block;
   font-size:12px; font-weight:700;
   color:#ff6600;
 }
-.plan__list{ display:flex; flex-direction:column; gap:9px; font-size:14px; color:var(--text-muted); margin:6px 0; }
+.plan__list{ display:flex; flex-direction:column; gap:7px; font-size:13px; color:var(--text-muted); margin:6px 0; }
+@media (min-width:820px){ .plan__list{ gap:9px; font-size:14px; } }
 .plan__list li{ display:flex; align-items:flex-start; gap:8px; }
 .plan__list li::before{
   content:'✓';
@@ -1166,8 +1168,8 @@ footer p+p{ margin-top:6px; }
    ========================================================================== */
 .reveal{
   opacity:0;
-  transform:translateY(28px);
-  transition:opacity .6s ease, transform .6s ease;
+  transform:translateY(14px);
+  transition:opacity .3s ease, transform .3s ease;
 }
 .reveal.is-visible{
   opacity:1;
@@ -1426,7 +1428,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
       <div class="price-box">
         <div class="price-box__label">Tudo isso por apenas:</div>
         <div class="price-box__row">
-          <div class="price-box__value"><sup>R$</sup> 10</div>
+          <div class="price-box__value"><span>R$</span> 10</div>
           <div class="price-box__note">( menos de <strong>R$ 0,02</strong><br>por aula )</div>
         </div>
         <div class="price-box__cycle">Pague uma Vez • Acesso vitalício</div>
@@ -1498,7 +1500,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
 <section class="section section--dark" style="border-top:1px solid var(--border-soft); padding-top:64px;">
   <div class="container">
     <div class="section-head reveal">
-      <h2 class="section-title" style="color:var(--gold); animation:glowPulse 3.5s ease-in-out infinite;">Cada história aqui começou igual à sua: no zero</h2>
+      <h2 class="section-title" style="color:var(--gold);">Cada história aqui começou igual à sua: no zero</h2>
     </div>
     <div>
       <div class="video-frame" id="videoFrame1">
@@ -1890,11 +1892,12 @@ if (stickyCta && heroEl){
   let pastHero = false;
   let lastScrollY = window.scrollY;
   let ticking = false;
+  const hiddenZones = new Set();
 
   const updateStickyCta = () => {
     const scrollY = window.scrollY;
     const scrollingUp = scrollY < lastScrollY - 2;
-    stickyCta.classList.toggle('is-visible', pastHero && !scrollingUp);
+    stickyCta.classList.toggle('is-visible', pastHero && !scrollingUp && hiddenZones.size === 0);
     lastScrollY = scrollY;
     ticking = false;
   };
@@ -1904,6 +1907,19 @@ if (stickyCta && heroEl){
     updateStickyCta();
   }, { threshold: 0 });
   heroObserver.observe(heroEl);
+
+  // some na secao de planos e no rodape/CTA final — ja tem CTA proprio ali
+  const zoneEls = [document.getElementById('planos'), document.querySelector('footer')].filter(Boolean);
+  if (zoneEls.length){
+    const zoneObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) hiddenZones.add(entry.target);
+        else hiddenZones.delete(entry.target);
+      });
+      updateStickyCta();
+    }, { threshold: 0 });
+    zoneEls.forEach(el => zoneObserver.observe(el));
+  }
 
   window.addEventListener('scroll', () => {
     if (ticking) return;
@@ -1953,7 +1969,7 @@ revealTargets.forEach(el => {
   el.classList.add('reveal');
   const parent = el.parentElement;
   const index = revealGroups.get(parent) || 0;
-  el.style.transitionDelay = Math.min(index, 6) * 90 + 'ms';
+  el.style.transitionDelay = Math.min(index, 4) * 50 + 'ms';
   revealGroups.set(parent, index + 1);
 });
 const revealObserver = new IntersectionObserver((entries) => {
@@ -1963,7 +1979,7 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 revealTargets.forEach(el => revealObserver.observe(el));
 
 /* ==========================================================================
