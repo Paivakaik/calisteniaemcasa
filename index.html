@@ -432,17 +432,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
    Para usar seu vídeo: coloque o arquivo em /assets e ajuste o <source src="">
    de cada .video-frame (ou troque o <video> por um <iframe> do Vimeo/YouTube).
    ========================================================================== */
-.video-kicker{
-  text-align:center;
-  font-family:var(--font-heading);
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--gold);
-  font-size:clamp(18px,2.6vw,26px);
-  margin-bottom:22px;
-  text-shadow:0 2px 12px rgba(255,204,0,.3);
-}
 .video-frame{
   position:relative;
   aspect-ratio:16/9;
@@ -691,14 +680,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   border-radius:28px;
   box-shadow:0 20px 50px rgba(0,0,0,.8);
 }
-.carousel__notch{
-  position:absolute; top:0; left:50%; transform:translateX(-50%);
-  width:80px; height:14px;
-  background:#000;
-  border:1px solid #222; border-top:none;
-  border-radius:0 0 12px 12px;
-  z-index:20;
-}
 .carousel__slide{
   position:absolute; inset:0;
   opacity:0;
@@ -706,13 +687,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   transform:scale(.95);
 }
 .carousel__slide.is-active{ opacity:1; transform:scale(1); }
-.carousel__slide-img{ width:100%; height:100%; object-fit:cover; filter:grayscale(.2); }
-.carousel__slide::after{
-  content:'';
-  position:absolute; inset:0;
-  background:linear-gradient(0deg, rgba(0,0,0,.9), transparent 55%);
-  pointer-events:none;
-}
+.carousel__slide-img{ width:100%; height:100%; object-fit:cover; }
 .carousel__slide-count{
   position:absolute; bottom:10px; right:14px; z-index:5;
   background:rgba(0,0,0,.8);
@@ -1514,10 +1489,18 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
       <div class="compare-footer__big">Economia de R$ 2.000+ no primeiro ano.</div>
       <div class="compare-footer__small">A matemática é simples demais.</div>
     </div>
+  </div>
+</section>
 
-    <!-- VÍDEO 1 — coloque o vídeo do aluno em /assets e ajuste o <source> abaixo -->
-    <div style="margin-top:56px;">
-      <div class="video-kicker">Cada história aqui começou igual à sua: no zero</div>
+<!-- ==========================================================================
+     VÍDEO 1 — coloque o vídeo do aluno em /assets e ajuste o <source> abaixo
+     ========================================================================== -->
+<section class="section section--dark" style="border-top:1px solid var(--border-soft); padding-top:64px;">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="section-title" style="color:var(--gold); animation:glowPulse 3.5s ease-in-out infinite;">Cada história aqui começou igual à sua: no zero</h2>
+    </div>
+    <div>
       <div class="video-frame" id="videoFrame1">
         <video class="video-frame__media js-scroll-video" controls playsinline preload="metadata">
           <source src="assets/video-1.mp4" type="video/mp4">
@@ -1535,7 +1518,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
 <section class="section">
   <div class="container">
     <div class="pain reveal">
-      <h2 class="pain-title">Calistenia Secreta:<br><span class="dim">do sedentário</span> ao <span class="gold">corpo de aço</span></h2>
+      <h2 class="pain-title">Calistenia Secreta:<br><span class="dim">do sedentarismo</span> ao <span class="gold">corpo de aço</span></h2>
       <div class="pain-divider"></div>
       <p class="pain-subtitle"><strong>611 aulas progressivas.</strong> 20-45min/dia. Resultados em 4 semanas.</p>
     </div>
@@ -1629,7 +1612,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
 
     <div class="carousel reveal">
       <div class="carousel__viewport" id="carouselViewport">
-        <div class="carousel__notch"></div>
         <!-- slides geradas via JS a partir de SLIDES[] -->
       </div>
       <div class="carousel__lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
@@ -1935,10 +1917,20 @@ if (stickyCta && heroEl){
    ========================================================================== */
 const scrollVideos = document.querySelectorAll('.js-scroll-video');
 if (scrollVideos.length){
+  const tryPlay = (video) => {
+    const attempt = video.play();
+    if (attempt && attempt.catch) {
+      attempt.catch(() => {
+        // navegador bloqueou autoplay com som — tenta mudo, que é sempre permitido
+        video.muted = true;
+        video.play().catch(() => {});
+      });
+    }
+  };
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.play().catch(() => {});
+        tryPlay(entry.target);
       } else {
         entry.target.pause();
       }
@@ -1952,7 +1944,7 @@ if (scrollVideos.length){
    ========================================================================== */
 const revealTargets = document.querySelectorAll(
   '.section-head, .compare-card, .method-card, .bonus-card, .plan, ' +
-  '.included__item, .stat, .faq-item, .video-kicker, .carousel, ' +
+  '.included__item, .stat, .faq-item, .carousel, ' +
   '.scarcity, .final-cta__title, .final-cta__text, .final-cta__trust span, ' +
   '.pain, .method-title, .support-row, .reveal'
 );
@@ -2007,9 +1999,7 @@ const dotsWrap = document.getElementById('carouselDots');
 let current = 0;
 
 function renderSlides(){
-  const notch = viewport.querySelector('.carousel__notch');
   viewport.innerHTML = '';
-  if (notch) viewport.appendChild(notch);
   SLIDES.forEach((s,i) => {
     const slide = document.createElement('div');
     slide.className = 'carousel__slide carousel__slide--img' + (i===0 ? ' is-active' : '');
