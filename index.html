@@ -31,6 +31,13 @@ src="https://www.facebook.com/tr?id=1540627627176181&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
+<!-- Trackfy -->
+<script
+  src="https://trackerfy-eight.vercel.app/track.js"
+  data-product="calistenia-secreta"
+  data-api="https://trackerfy-eight.vercel.app/api/track"
+></script>
+
 <style>
 /* ==========================================================================
    1. DESIGN TOKENS — mude as cores/fontes do site inteiro só aqui
@@ -1994,7 +2001,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
           <li>Cursos novos adicionados constantemente</li>
           <li>Conteúdos reunidos em um só lugar</li>
         </ul>
-        <a href="https://lastlink.com/p/C51A0C3E4/checkout-payment/" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o acesso total</span><span class="btn__arrow">→</span></a>
+        <a href="https://lastlink.com/p/C51A0C3E4/checkout-payment/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o acesso total</span><span class="btn__arrow">→</span></a>
       </div>
 
       <!-- Premium -->
@@ -2018,7 +2025,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
           <li>Acesso a novos conteúdos</li>
           <li>Tudo em um único lugar</li>
         </ul>
-        <a href="https://lastlink.com/p/C9E6CBB97/checkout-payment/" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
+        <a href="https://lastlink.com/p/C9E6CBB97/checkout-payment/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
       </div>
     </div>
 
@@ -2134,10 +2141,10 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
 
     <p class="upsell__pitch">Por apenas R$4,90 a mais, você pode transformar seu STARTER em GROWTH e ter acesso a uma biblioteca muito maior de conteúdos.</p>
 
-    <a href="https://lastlink.com/p/C898CE562/checkout-payment/" class="btn btn--gold btn--lg btn--arrow upsell__cta"><span>🔥 Fazer upgrade para GROWTH por R$4,90 a mais</span><span class="btn__arrow">→</span></a>
+    <a href="https://lastlink.com/p/C898CE562/checkout-payment/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="btn btn--gold btn--lg btn--arrow upsell__cta"><span>🔥 Fazer upgrade para GROWTH por R$4,90 a mais</span><span class="btn__arrow">→</span></a>
     <p class="upsell__micro">Sim, quero o GROWTH por apenas R$14,90</p>
 
-    <a href="https://lastlink.com/p/C9C726DE0/" class="upsell__decline">Não, obrigado. Quero continuar com o STARTER por R$10</a>
+    <a href="https://lastlink.com/p/C9C726DE0/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="upsell__decline">Não, obrigado. Quero continuar com o STARTER por R$10</a>
   </div>
 </div>
 
