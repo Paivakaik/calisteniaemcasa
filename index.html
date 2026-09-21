@@ -281,37 +281,11 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 }
 
 .price-box{
-  position:relative;
   background:var(--bg-panel-2);
   border:1px solid var(--border-soft);
   padding:22px 26px 20px;
   max-width:420px;
   backdrop-filter:blur(6px);
-}
-
-/* selo "50% OFF" — reforça que o desconto é uma promoção real */
-.promo-badge{
-  display:inline-flex;
-  align-items:center;
-  background:#e02424;
-  color:#fff;
-  font-family:var(--font-heading);
-  font-weight:800;
-  letter-spacing:.04em;
-  white-space:nowrap;
-  clip-path:polygon(0 0,100% 0,100% 100%,6px 100%,0 calc(100% - 6px));
-}
-.promo-badge--corner{
-  position:absolute;
-  top:-11px; right:16px;
-  font-size:13px;
-  padding:6px 14px;
-  transform:rotate(3deg);
-  box-shadow:0 6px 14px rgba(224,36,36,.45);
-}
-.promo-badge--inline{
-  font-size:11px;
-  padding:4px 10px;
 }
 .price-box__label{
   font-size:13.5px;
@@ -490,10 +464,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   inset:0;
   z-index:10;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:14px;
   background:rgba(0,0,0,.35);
   transition:opacity .2s ease;
 }
@@ -511,15 +483,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   border-style:solid;
   border-width:16px 0 16px 26px;
   border-color:transparent transparent transparent #161008;
-}
-.video-frame__play-label{
-  font-family:var(--font-heading);
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  color:var(--text);
-  font-size:15px;
-  text-shadow:0 2px 8px rgba(0,0,0,.8);
 }
 .video-frame.is-playing .video-frame__play{ opacity:0; pointer-events:none; }
 
@@ -1010,7 +973,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   color:var(--text);
 }
 @media (min-width:820px){ .plan__name{ font-size:20px; } }
-.plan__prices{ display:flex; align-items:baseline; gap:10px; margin-top:4px; flex-wrap:wrap; }
+.plan__prices{ display:flex; align-items:baseline; gap:10px; margin-top:4px; }
 .plan__old{
   color:rgba(255,255,255,.3);
   text-decoration:line-through;
@@ -1490,7 +1453,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
       </h1>
 
       <div class="price-box">
-        <span class="promo-badge promo-badge--corner">50% OFF</span>
         <div class="price-box__label">Tudo isso por apenas:</div>
         <div class="price-box__row">
           <div class="price-box__value"><span>R$</span> 10</div>
@@ -1572,10 +1534,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <video class="video-frame__media js-scroll-video" playsinline preload="metadata">
           <source src="assets/video-1.mp4" type="video/mp4">
         </video>
-        <button class="video-frame__play" aria-label="Reproduzir vídeo">
-          <span class="video-frame__play-circle"></span>
-          <span class="video-frame__play-label">Assistir vídeo</span>
-        </button>
+        <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
         <div class="video-frame__corner video-frame__corner--tl"></div>
         <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
@@ -1667,10 +1626,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <video class="video-frame__media js-scroll-video" playsinline preload="metadata">
           <source src="assets/video-2.mp4" type="video/mp4">
         </video>
-        <button class="video-frame__play" aria-label="Reproduzir vídeo">
-          <span class="video-frame__play-circle"></span>
-          <span class="video-frame__play-label">Assistir vídeo</span>
-        </button>
+        <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
         <div class="video-frame__corner video-frame__corner--tl"></div>
         <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
@@ -1697,7 +1653,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
     <div class="carousel__caption">* prints reais enviados espontaneamente por alunos</div>
 
     <div class="stats-row">
-      <div class="stat"><div class="stat__value">+8 mil</div><div class="stat__label">Vidas transformadas</div></div>
+      <div class="stat"><div class="stat__value">+800</div><div class="stat__label">Vidas transformadas</div></div>
       <div class="stat"><div class="stat__value">100%</div><div class="stat__label">Natural</div></div>
       <div class="stat"><div class="stat__value">4.9/5</div><div class="stat__label">Satisfação</div></div>
       <div class="stat"><div class="stat__value">4 sem.</div><div class="stat__label">Primeiros resultados</div></div>
@@ -1805,7 +1761,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <div class="plan__prices">
           <span class="plan__old">R$ 37</span>
           <span class="plan__price">R$ 10</span>
-          <span class="promo-badge promo-badge--inline">50% OFF</span>
         </div>
         <div class="plan__cycle">Vitalício</div>
         <span class="plan__save">Economize R$ 27</span>
@@ -1832,7 +1787,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <div class="plan__prices">
           <span class="plan__old">R$ 67</span>
           <span class="plan__price">R$ 19,90</span>
-          <span class="promo-badge promo-badge--inline">50% OFF</span>
         </div>
         <div class="plan__cycle">Vitalício</div>
         <span class="plan__save">Economize R$ 47,10 (70% off)</span>
@@ -1858,7 +1812,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <div class="plan__prices">
           <span class="plan__old">R$ 147</span>
           <span class="plan__price">R$ 39,90</span>
-          <span class="promo-badge promo-badge--inline">50% OFF</span>
         </div>
         <div class="plan__cycle">Vitalício</div>
         <span class="plan__save">Economize R$ 107,10 (73% off)</span>
@@ -1935,7 +1888,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
 <section class="section final-cta">
   <div class="container">
     <h2 class="final-cta__title">Comece sua transformação agora</h2>
-    <p class="final-cta__text">Você está a um clique de ter acesso ao método completo que já mudou a vida de mais de 8 mil pessoas.</p>
+    <p class="final-cta__text">Você está a um clique de ter acesso ao método completo que já mudou a vida de mais de 800 pessoas.</p>
     <a href="#planos" class="btn btn--gold btn--lg btn--arrow"><span>Quero começar agora</span><span class="btn__arrow">→</span></a>
     <div class="final-cta__trust">
       <span>🛡️ Garantia de 15 dias</span>
