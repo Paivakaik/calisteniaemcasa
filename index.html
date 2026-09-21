@@ -976,6 +976,22 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   background:var(--gold);
   transform:scale(1.25);
 }
+
+/* aviso comum aos 3 planos — pagamento unico, sem mensalidade */
+.plans-note{
+  text-align:center;
+  margin-top:28px;
+  font-family:var(--font-heading);
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-size:clamp(13px,2.2vw,16px);
+  padding:12px 20px;
+  border-top:1px solid var(--border-soft);
+  border-bottom:1px solid var(--border-soft);
+}
+
 .plan__tag{
   position:absolute; top:0; right:0;
   font-family:var(--font-heading);
@@ -1011,6 +1027,15 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   font-size:12px; font-weight:700;
   color:#ff6600;
 }
+.plan__inherits{
+  font-family:var(--font-heading);
+  font-weight:700;
+  letter-spacing:.02em;
+  font-size:13px;
+  color:var(--gold);
+  margin-top:2px;
+}
+.plan__inherits strong{ color:var(--text); font-weight:800; }
 .plan__list{ display:flex; flex-direction:column; gap:7px; font-size:13px; color:var(--text-muted); margin:6px 0; }
 @media (min-width:820px){ .plan__list{ gap:9px; font-size:14px; } }
 .plan__list li{ display:flex; align-items:flex-start; gap:8px; }
@@ -1788,12 +1813,12 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         <div class="plan__cycle">Vitalício</div>
         <span class="plan__save">Economize R$ 27</span>
         <ul class="plan__list">
-          <li>Acesso vitalício completo</li>
           <li>611 aulas em vídeo HD</li>
-          <li>Módulo zero ao avançado</li>
-          <li>Suporte prioritário</li>
-          <li>Garantia de 15 dias</li>
+          <li>Módulo do zero ao avançado</li>
           <li>5 bônus exclusivos</li>
+          <li>Suporte</li>
+          <li>Treine pelo celular, tablet ou computador</li>
+          <li>Garantia de 15 dias</li>
         </ul>
         <div class="plan__foot">
           <div class="plan__support"><span>Suporte</span><span class="plan__support-icons">✉️</span></div>
@@ -1813,12 +1838,12 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         </div>
         <div class="plan__cycle">Vitalício</div>
         <span class="plan__save">Economize R$ 47,10 (70% off)</span>
+        <div class="plan__inherits">Tudo do <strong>Calistenia Secreta</strong> +</div>
         <ul class="plan__list">
-          <li>Acesso a dezenas de cursos fitness</li>
-          <li>Plataforma estilo Netflix — um só lugar</li>
-          <li>Calistenia Secreta + SecretaFlix vitalício</li>
+          <li>Dezenas de cursos fitness</li>
+          <li>SecretaFlix: plataforma estilo Netflix</li>
           <li>Cursos novos adicionados constantemente</li>
-          <li>Pagamento único, sem mensalidades</li>
+          <li>Conteúdos reunidos em um só lugar</li>
         </ul>
         <div class="plan__foot">
           <div class="plan__support"><span>Suporte</span><span class="plan__support-icons">✉️ 📷</span></div>
@@ -1838,12 +1863,18 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
         </div>
         <div class="plan__cycle">Vitalício</div>
         <span class="plan__save">Economize R$ 107,10 (73% off)</span>
+        <div class="plan__inherits">Tudo do <strong>Calistenia + SecretaFlix</strong> +</div>
         <ul class="plan__list">
-          <li>Calistenia Secreta + SecretaFlix + Calisteniapp Premium</li>
-          <li>Seu personal de calistenia no bolso, todos os dias</li>
-          <li>Planos de treino que evoluem com você</li>
-          <li>Pagamento único, sem mensalidades</li>
-          <li>Treine pelo celular, tablet ou computador</li>
+          <li>Calisteniapp Premium</li>
+          <li>Seu personal de calistenia no bolso</li>
+          <li>Planos de treino estruturados</li>
+          <li>Treinos para diferentes objetivos</li>
+          <li>Evolução progressiva dos treinos</li>
+          <li>Acompanhamento do seu progresso</li>
+          <li>Orientações para executar os exercícios</li>
+          <li>Suporte exclusivo</li>
+          <li>Acesso a novos conteúdos</li>
+          <li>Tudo em um único lugar</li>
         </ul>
         <div class="plan__foot">
           <div class="plan__support"><span>Suporte exclusivo</span><span class="plan__support-icons"><svg viewBox="0 0 32 32" fill="none" width="20" height="20"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.825.738 5.48 2.025 7.788L0 32l8.425-2.006A15.938 15.938 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0z" fill="#25D366"></path><path d="M22.86 19.34c-.38-.19-2.23-1.1-2.58-1.23-.35-.13-.6-.19-.85.19-.25.38-.97 1.23-1.19 1.48-.22.25-.44.28-.82.09-.38-.19-1.59-.59-3.03-1.87-1.12-1-1.88-2.23-2.1-2.61-.22-.38-.02-.58.17-.77.17-.17.38-.44.57-.66.19-.22.25-.38.38-.63.13-.25.06-.47-.03-.66-.09-.19-.85-2.05-1.16-2.8-.31-.75-.63-.64-.85-.65h-.73c-.25 0-.66.09-1.01.47-.35.38-1.33 1.3-1.33 3.16s1.36 3.66 1.55 3.91c.19.25 2.66 4.07 6.45 5.71.9.39 1.61.62 2.16.8.9.29 1.73.25 2.38.15.73-.11 2.23-.91 2.55-1.8.31-.88.31-1.64.22-1.8-.09-.16-.35-.25-.73-.44z" fill="#fff"></path></svg></span></div>
@@ -1854,6 +1885,8 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-card__text{
     </div>
 
     <div class="plans-dots" id="plansDots"></div>
+
+    <div class="plans-note">Pagamento único • Sem mensalidades • Acesso vitalício</div>
   </div>
 </section>
 
