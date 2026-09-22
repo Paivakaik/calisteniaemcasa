@@ -2400,5 +2400,34 @@ if (plan10Cta && upsellOverlay){
   });
 }
 </script>
+
+<!-- Repassa os UTMs da página (vindos do anúncio) pro link de checkout do
+     Lastlink, pra conseguir ver depois qual campanha gerou cada venda. Sem
+     isso o Lastlink não recebe nenhum parâmetro e o webhook não sabe de
+     onde veio a venda. -->
+<script>
+(function () {
+  var TRACKED = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ad_account'];
+  var pageParams = new URLSearchParams(window.location.search);
+  var toForward = new URLSearchParams();
+  TRACKED.forEach(function (key) {
+    var value = pageParams.get(key);
+    if (value) toForward.set(key, value);
+  });
+  if (![...toForward.keys()].length) return;
+
+  document.querySelectorAll('a[href*="lastlink.com"]').forEach(function (a) {
+    try {
+      var url = new URL(a.href);
+      toForward.forEach(function (value, key) {
+        url.searchParams.set(key, value);
+      });
+      a.href = url.toString();
+    } catch (e) {
+      /* href inválida, ignora */
+    }
+  });
+})();
+</script>
 </body>
 </html>
