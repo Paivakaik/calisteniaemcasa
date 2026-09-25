@@ -3,6 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Trava de domínio: se essa página for copiada e hospedada fora dos
+     domínios oficiais, redireciona pro site real em vez de carregar
+     normalmente. Roda o mais cedo possível, antes de qualquer outro
+     recurso, pra não dar tempo da cópia renderizar. -->
+<script>
+(function () {
+  var host = window.location.hostname;
+  var isOfficial =
+    host === 'paivakaik.github.io' ||
+    host === 'localhost' ||
+    host === '127.0.0.1' ||
+    /(^|\.)vercel\.app$/.test(host);
+  if (!isOfficial) {
+    window.location.replace('https://calisteniaemcasa.vercel.app/');
+  }
+})();
+</script>
+
 <title>Calistenia Secreta — Corpo de Aço</title>
 
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
