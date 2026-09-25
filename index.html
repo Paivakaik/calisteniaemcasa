@@ -561,44 +561,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 }
 
 /* ==========================================================================
-   5. "PAIN" — título Calistenia Secreta: do sedentário ao corpo de aço
-   ========================================================================== */
-.pain{
-  text-align:center;
-  border-top:4px solid var(--gold);
-  padding-top:36px;
-}
-.pain-title{
-  font-family:var(--font-heading);
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:.03em;
-  font-size:clamp(32px,7vw,64px);
-  line-height:.95;
-  color:var(--text);
-  margin-bottom:22px;
-}
-.pain-title .dim{ color:#666; }
-.pain-title .gold{ color:var(--gold); }
-.pain-divider{
-  width:96px; height:4px;
-  background:var(--gold);
-  margin:0 auto 28px;
-}
-.pain-subtitle{
-  color:#ccc;
-  font-weight:300;
-  font-size:clamp(17px,2.5vw,26px);
-  line-height:1.5;
-}
-.pain-subtitle strong{
-  color:var(--gold);
-  font-weight:700;
-  background:var(--gold-soft);
-  padding:0 6px;
-}
-
-/* ==========================================================================
    6. RESULTADOS / CARROSSEL
    ========================================================================== */
 .stars{ color:var(--gold); letter-spacing:4px; font-size:32px; margin-bottom:14px; text-align:center; }
@@ -1141,11 +1103,11 @@ footer p+p{ margin-top:6px; }
    OTIMIZAÇÃO MOBILE — Separação nítida de blocos e quebras de texto claras
    ========================================================================== */
 h1, h2, h3, .section-title, .hero__headline, .results-main-title,
-.pain-title, .before-after-title, .bonus-compact__title, .plan__name, .faq-item__q{
+.before-after-title, .bonus-compact__title, .plan__name, .faq-item__q{
   text-wrap:balance;
   word-break:normal;
 }
-p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-compact__text{
+p, .section-subtitle, .results-subtitle, .bonus-compact__text{
   text-wrap:pretty;
 }
 
@@ -1263,20 +1225,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-compact__text{
   .compare-card__list li{
     font-size:14px;
     line-height:1.35;
-  }
-
-  /* Seção Pain e Método */
-  .pain{
-    padding-top:28px;
-  }
-  .pain-title{
-    font-size:clamp(26px,7vw,36px);
-    line-height:1.1;
-    margin-bottom:16px;
-  }
-  .pain-subtitle{
-    font-size:14.5px;
-    line-height:1.45;
   }
 
   /* Seção Resultados Reais e Antes e Depois */
@@ -1621,19 +1569,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-compact__text{
         <div class="video-frame__corner video-frame__corner--tl"></div>
         <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     PAIN — Calistenia Secreta: do sedentário ao corpo de aço
-     ========================================================================== -->
-<section class="section">
-  <div class="container">
-    <div class="pain reveal">
-      <h2 class="pain-title">Calistenia Secreta:<br><span class="dim">do sedentarismo</span> ao <span class="gold">corpo de aço</span></h2>
-      <div class="pain-divider"></div>
-      <p class="pain-subtitle"><strong>611 aulas progressivas.</strong> 20-45min/dia. Resultados em 4 semanas.</p>
     </div>
   </div>
 </section>
@@ -2022,7 +1957,7 @@ const revealTargets = document.querySelectorAll(
   '.section-head, .compare-card, .bonus-compact__item, .plan, ' +
   '.stat, .faq-item, .carousel, ' +
   '.scarcity, .final-cta__title, .final-cta__text, .final-cta__trust span, ' +
-  '.pain, .support-row, .reveal'
+  '.support-row, .reveal'
 );
 const revealGroups = new Map();
 revealTargets.forEach(el => {
