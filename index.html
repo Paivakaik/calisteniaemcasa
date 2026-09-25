@@ -1471,14 +1471,19 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-compact__text{
 }
 .upsell__decline{
   display:block;
-  margin-top:16px;
-  padding:8px;
+  margin-top:14px;
+  padding:11px 16px;
+  font-family:var(--font-heading);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.02em;
   font-size:12.5px;
   color:var(--red);
-  text-decoration:underline;
-  text-underline-offset:3px;
+  border:1px solid var(--red);
+  border-radius:8px;
+  transition:background .15s ease, color .15s ease;
 }
-.upsell__decline:hover{ color:#ff3b3b; }
+.upsell__decline:hover{ background:var(--red); color:#fff; }
 
 @media (max-width:480px){
   .upsell__modal{ padding:22px 18px 18px; border-radius:14px; }
