@@ -582,7 +582,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 /* ==========================================================================
    6. RESULTADOS / CARROSSEL
    ========================================================================== */
-.stars{ color:var(--gold); letter-spacing:2px; font-size:18px; margin-bottom:10px; text-align:center; }
+.stars{ color:var(--gold); letter-spacing:4px; font-size:32px; margin-bottom:14px; text-align:center; }
+@media (min-width:820px){ .stars{ font-size:38px; } }
 
 .results-main-title{
   font-family:var(--font-heading);
@@ -689,17 +690,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   padding:2px 8px;
   border-radius:6px;
 }
-
-.carousel__lock{
-  position:absolute; bottom:-14px; right:-14px; z-index:20;
-  width:36px; height:36px;
-  display:flex; align-items:center; justify-content:center;
-  background:var(--gold);
-  color:#161008;
-  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
-  box-shadow:0 0 20px rgba(255,204,0,.4);
-}
-.carousel__lock svg{ width:18px; height:18px; }
 
 .carousel__nav{
   position:absolute; top:50%; transform:translateY(-50%);
@@ -1634,7 +1624,7 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-compact__text{
 
     <div class="before-after-head reveal">
       <h3 class="before-after-title">ANTES E DEPOIS</h3>
-      <p class="before-after-sub">A TRANSFORMAÇÃO REAL — E COMO ELA ACONTECE</p>
+      <p class="before-after-sub">A TRANSFORMAÇÃO REAL E COMO ELA ACONTECE</p>
     </div>
 
     <!-- VÍDEO 2 — formato stories (vertical 9:16) -->
@@ -1662,7 +1652,6 @@ p, .section-subtitle, .results-subtitle, .pain-subtitle, .bonus-compact__text{
       <div class="carousel__viewport" id="carouselViewport">
         <!-- slides geradas via JS a partir de SLIDES[] -->
       </div>
-      <div class="carousel__lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
       <button class="carousel__nav carousel__nav--prev" id="prevSlide" aria-label="Anterior">‹</button>
       <button class="carousel__nav carousel__nav--next" id="nextSlide" aria-label="Próximo">›</button>
     </div>
