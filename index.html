@@ -659,6 +659,28 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; color
   font-size:13px; color:var(--ink-muted);
 }
 
+.stars{ color:var(--accent); letter-spacing:4px; font-size:30px; line-height:1; }
+@media (min-width:820px){ .stars{ font-size:36px; } }
+
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+  max-width:900px;
+  margin:56px auto 0;
+  text-align:center;
+}
+@media (max-width:700px){ .stats-row{ grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:44px; } }
+.stat{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:22px 10px;
+  box-shadow:var(--shadow-sm);
+}
+.stat__value{ font-weight:800; font-size:30px; letter-spacing:-.02em; color:var(--accent); line-height:1.1; }
+.stat__label{ font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-muted); margin-top:6px; }
+
 /* ==========================================================================
    8. BÔNUS (lista compacta: ícone + título + 1 linha)
    ========================================================================== */
@@ -706,12 +728,37 @@ button{ font-family:inherit; cursor:pointer; border:none; background:none; color
 /* ==========================================================================
    9. PLANOS / PREÇOS
    ========================================================================== */
-.plans-lead{
-  text-align:center;
-  font-size:13.5px;
-  color:var(--ink-muted);
-  margin:-18px 0 30px;
+.scarcity{
+  max-width:640px;
+  margin:0 auto 36px;
 }
+.scarcity__row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:10px;
+  flex-wrap:wrap;
+}
+.scarcity__label{ font-weight:700; font-size:14px; color:var(--ink); }
+.scarcity__label strong,
+.scarcity__label .scarcity__arrow{ color:var(--accent); }
+.scarcity__sold{ font-weight:700; font-size:13px; color:var(--ink-muted); }
+.scarcity__bar{
+  height:10px;
+  background:var(--accent-soft);
+  border-radius:999px;
+  overflow:hidden;
+}
+.scarcity__fill{
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--accent-dark), var(--accent));
+  transition:width 3.5s cubic-bezier(.2,.8,.2,1);
+}
+.scarcity__fill.is-filled{ width:83%; }
+.scarcity__note{ margin-top:10px; font-size:13px; color:var(--ink-muted); text-align:center; }
 
 .plans{
   /* mobile (padrão): trilho horizontal com scroll-snap — cada card ocupa a maior
@@ -1310,14 +1357,15 @@ footer p+p{ margin-top:6px; }
         <div class="compare-card__icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/></svg></div>
         <div class="compare-card__title">Academia convencional</div>
         <ul class="compare-card__list">
-          <li>Mensalidade recorrente</li>
-          <li>Deslocamento até o local</li>
-          <li>Horário fixo e, às vezes, lotado</li>
+          <li>Mensalidade: R$ 150–300/mês</li>
+          <li>Matrícula: R$ 200</li>
+          <li>Deslocamento: 1–2h/dia</li>
+          <li>Horário fixo e lotado</li>
         </ul>
         <div class="compare-card__cost">
-          <div class="compare-card__cost-label">Custo:</div>
-          <div class="compare-card__cost-value">Mensalidade</div>
-          <div class="compare-card__cost-note">Cobrada todo mês.</div>
+          <div class="compare-card__cost-label">Custo anual:</div>
+          <div class="compare-card__cost-value">R$ 2.000+</div>
+          <div class="compare-card__cost-note">Todo ano. Pra sempre.</div>
         </div>
       </div>
 
@@ -1329,7 +1377,8 @@ footer p+p{ margin-top:6px; }
           <li>611 treinos em um só lugar</li>
           <li>Do zero ao avançado</li>
           <li>Treine em casa, quando quiser</li>
-          <li>Sem mensalidades</li>
+          <li>Zero equipamento caro</li>
+          <li>Progressão garantida</li>
           <li>Acesso digital pelo celular, tablet ou computador</li>
         </ul>
         <div class="compare-card__cost">
@@ -1341,8 +1390,8 @@ footer p+p{ margin-top:6px; }
     </div>
 
     <div class="compare-footer">
-      <div class="compare-footer__big">Pagamento único, sem mensalidades.</div>
-      <div class="compare-footer__small">Treine em casa, no seu ritmo.</div>
+      <div class="compare-footer__big">Economia de R$ 2.000+ no primeiro ano.</div>
+      <div class="compare-footer__small">A matemática é simples demais.</div>
     </div>
   </div>
 </section>
@@ -1373,13 +1422,15 @@ footer p+p{ margin-top:6px; }
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow">Prova social</span>
+      <div class="stars" aria-label="5 estrelas">★★★★★</div>
       <h2 class="section-title">Feedbacks de <em>quem já treina</em></h2>
     </div>
 
     <!-- VÍDEO 2 — formato stories (vertical 9:16) -->
     <div class="proof-block">
       <div class="mini-head reveal">
-        <h3 class="mini-head__title">Veja na prática</h3>
+        <h3 class="mini-head__title">Antes e depois</h3>
+        <p class="mini-head__sub">A transformação real e como ela acontece</p>
       </div>
       <div class="video-frame video-frame--stories" id="videoFrame2">
         <video class="video-frame__media js-scroll-video" playsinline preload="metadata" poster="assets/video-2-poster.webp">
@@ -1407,6 +1458,13 @@ footer p+p{ margin-top:6px; }
     </div>
     <div class="carousel__dots" id="carouselDots"></div>
     <div class="carousel__caption">Prints reais enviados espontaneamente por alunos.</div>
+
+    <div class="stats-row">
+      <div class="stat"><div class="stat__value">+8 mil</div><div class="stat__label">Vidas transformadas</div></div>
+      <div class="stat"><div class="stat__value">100%</div><div class="stat__label">Natural</div></div>
+      <div class="stat"><div class="stat__value">4.9/5</div><div class="stat__label">Satisfação</div></div>
+      <div class="stat"><div class="stat__value">4 sem.</div><div class="stat__label">Primeiros resultados</div></div>
+    </div>
   </div>
 </section>
 
@@ -1416,7 +1474,7 @@ footer p+p{ margin-top:6px; }
 <section class="section section--alt">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Bônus incluídos</span>
+      <span class="eyebrow">Oferta por tempo limitado</span>
       <h2 class="section-title">Leve <em>5 bônus</em> junto com o seu acesso</h2>
       <p class="section-subtitle">Ao garantir seu acesso, você recebe também estes bônus, sem custo adicional.</p>
     </div>
@@ -1472,12 +1530,19 @@ footer p+p{ margin-top:6px; }
 <section class="section" id="planos">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Calistenia Delas</span>
+      <span class="eyebrow">Oferta limitada para novos alunos</span>
       <h2 class="section-title">Escolha o seu <em>acesso</em></h2>
       <p class="section-subtitle">Compare as opções e escolha a ideal para você.</p>
     </div>
 
-    <p class="plans-lead">O conteúdo é liberado imediatamente após o pagamento.</p>
+    <div class="scarcity" id="scarcity">
+      <div class="scarcity__row">
+        <span class="scarcity__label"><span class="scarcity__arrow">▼</span> Apenas <strong>17%</strong> das vagas disponíveis</span>
+        <span class="scarcity__sold">83% vendido</span>
+      </div>
+      <div class="scarcity__bar"><div class="scarcity__fill" id="scarcityFill"></div></div>
+      <div class="scarcity__note">O conteúdo é liberado imediatamente após o pagamento.</div>
+    </div>
 
     <div class="plans-dots" id="plansDots"></div>
 
@@ -1754,7 +1819,7 @@ if (scrollVideos.length){
    ========================================================================== */
 const revealTargets = document.querySelectorAll(
   '.section-head, .benefit, .included, .compare-card, .bonus-compact__item, .plan, ' +
-  '.faq-item, .carousel, .final-cta__card, ' +
+  '.faq-item, .carousel, .final-cta__card, .stat, .scarcity, ' +
   '.support-row, .reveal'
 );
 const revealGroups = new Map();
@@ -1774,6 +1839,22 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 revealTargets.forEach(el => revealObserver.observe(el));
+
+/* ==========================================================================
+   BARRA DE VAGAS — anima o preenchimento quando entra na tela
+   ========================================================================== */
+const scarcityFill = document.getElementById('scarcityFill');
+if (scarcityFill){
+  const scarcityObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        scarcityFill.classList.add('is-filled');
+        scarcityObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  scarcityObserver.observe(document.getElementById('scarcity'));
+}
 
 /* ==========================================================================
    CARROSSEL DE FEEDBACKS
