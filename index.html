@@ -543,23 +543,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   right:8px;
 }
 
-/* variante "app" — vídeo do app: toca sozinho em loop quando aparece */
+/* variante "app" — vídeo do app um pouco mais estreito */
 .video-frame--app{ max-width:320px; }
-.video-frame__sound{
-  position:absolute;
-  right:12px; bottom:12px;
-  z-index:11;
-  display:flex; align-items:center; gap:6px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:rgba(10,10,10,.75);
-  border:1px solid var(--gold-border);
-  color:var(--gold);
-  font:700 13px/1 'Barlow',sans-serif;
-  letter-spacing:.5px;
-  cursor:pointer;
-}
-.video-frame__sound.is-on{ opacity:.55; }
 
 /* ==========================================================================
    6. RESULTADOS / CARROSSEL
@@ -1607,15 +1592,14 @@ p, .section-subtitle, .results-subtitle, .bonus-compact__text{
       <h2 class="section-title" style="color:var(--gold);">Por dentro do aplicativo</h2>
     </div>
 
-    <!-- VÍDEO DO APLICATIVO — formato stories (vertical 9:16).
-         Toca sozinho quando aparece; tenta tocar com som e, se o navegador bloquear,
-         toca mudo e liga o som no primeiro toque na página (ou pelo botão). -->
+    <!-- VÍDEO DO APLICATIVO — formato stories (vertical 9:16), igual aos outros vídeos:
+         toca com som quando a visitante aperta o play. -->
     <div style="margin-bottom:40px;">
       <div class="video-frame video-frame--stories video-frame--app reveal" id="videoFrameApp">
-        <video class="video-frame__media js-autoplay-video" muted loop playsinline preload="metadata" poster="assets/video-app-poster.webp" aria-label="Tour pelo app Calistenia Delas: 611 exercícios, escolha de nível, vídeo e passo a passo, acesso por e-mail e garantia de 7 dias">
+        <video class="video-frame__media js-scroll-video" playsinline preload="metadata" poster="assets/video-app-poster.webp" aria-label="Tour pelo app Calistenia Delas: 611 exercícios, escolha de nível, vídeo e passo a passo, acesso por e-mail e garantia de 7 dias">
           <source src="assets/video-app.mp4" type="video/mp4">
         </video>
-        <button class="video-frame__sound" type="button" aria-label="Ativar som do vídeo">🔊 Ativar som</button>
+        <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
         <div class="video-frame__corner video-frame__corner--tl"></div>
         <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
@@ -1947,59 +1931,6 @@ if (scrollVideos.length){
     videoObserver.observe(v);
   });
 }
-
-/* VÍDEO DO APP — toca sozinho quando aparece e tenta tocar COM som.
-   Navegadores bloqueiam som automático sem um toque/clique da visitante;
-   nesse caso toca mudo e o som liga no primeiro toque em qualquer lugar
-   da página (ou pelo botão). Pausa quando sai da tela. */
-document.querySelectorAll('.js-autoplay-video').forEach(v => {
-  const btn = v.closest('.video-frame').querySelector('.video-frame__sound');
-  let userMuted = false;   // visitante desligou o som de propósito
-  let soundOn = false;     // som já foi liberado alguma vez
-
-  const syncBtn = () => {
-    if (!btn) return;
-    btn.classList.toggle('is-on', !v.muted);
-    btn.textContent = v.muted ? '🔊 Ativar som' : '🔇 Desativar som';
-    btn.setAttribute('aria-label', v.muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo');
-  };
-
-  const playWithSound = () => {
-    v.muted = userMuted;
-    return v.play().then(() => { if (!v.muted) soundOn = true; syncBtn(); }).catch(() => {
-      v.muted = true;            // som bloqueado: segue mudo
-      syncBtn();
-      return v.play().catch(() => {});
-    });
-  };
-
-  let visible = false;
-  new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      visible = entry.isIntersecting;
-      if (visible) playWithSound();
-      else v.pause();
-    });
-  }, { threshold: 0.5 }).observe(v);
-
-  // primeiro toque/clique/tecla na página libera o som
-  const unlock = (e) => {
-    if (btn && btn.contains(e.target)) return;
-    if (userMuted || soundOn) return;
-    v.muted = false;
-    soundOn = true;
-    if (visible){ v.currentTime = 0; v.play().catch(() => {}); }
-    syncBtn();
-  };
-  ['pointerup','keydown'].forEach(ev => document.addEventListener(ev, unlock, { passive:true }));
-
-  if (btn) btn.addEventListener('click', () => {
-    v.muted = !v.muted;
-    userMuted = v.muted;
-    if (!v.muted){ soundOn = true; v.currentTime = 0; v.play().catch(() => {}); }
-    syncBtn();
-  });
-});
 
 /* ==========================================================================
    REVEAL — cada bloco/item aparece suavemente conforme rola até ele
