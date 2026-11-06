@@ -1958,7 +1958,11 @@ footer{ border-top-color:rgba(255,255,255,.05); }
   box-shadow:0 1px 0 rgba(255,255,255,.55) inset, 0 12px 30px -10px rgba(255,180,40,.6);
 }
 .sticky-cta__kicker{ font-family:var(--font-body); font-weight:600; letter-spacing:.18em; font-size:10.5px; opacity:.8; }
-.sticky-cta__label{ font-family:var(--font-heading); font-weight:400; font-size:24px; letter-spacing:.03em; }
+.sticky-cta__label{ font-family:var(--font-heading); font-weight:400; font-size:19px; letter-spacing:.03em; }
+/* versão mais fina e discreta */
+.sticky-cta{ padding:16px 14px 10px; }
+.sticky-cta__btn{ padding:9px 16px; border-radius:999px; }
+@media (max-width:760px){ body{ padding-bottom:68px; } }
 
 /* ---------- popup de upsell ---------- */
 .upsell{ backdrop-filter:blur(8px); }
@@ -2383,8 +2387,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 <!-- CTA fixo no mobile -->
 <div class="sticky-cta">
   <a href="#planos" class="sticky-cta__btn">
-    <span class="sticky-cta__kicker">Acorde agora</span>
-    <span class="sticky-cta__label">Escolher meu plano</span>
+    <span class="sticky-cta__label">Escolher meu plano ↓</span>
   </a>
 </div>
 
@@ -2423,10 +2426,11 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 
 <script>
 /* ==========================================================================
-   CTA FIXO — só aparece depois do hero, some ao rolar pra cima
+   CTA FIXO — só aparece depois que a pessoa passou pelo vídeo do app
+   (já viu o produto), some ao rolar pra cima, nos planos e no CTA final
    ========================================================================== */
 const stickyCta = document.querySelector('.sticky-cta');
-const heroEl = document.getElementById('topo');
+const heroEl = document.getElementById('videoFrameApp') || document.getElementById('topo');
 if (stickyCta && heroEl){
   let pastHero = false;
   let lastScrollY = window.scrollY;
@@ -2442,13 +2446,14 @@ if (stickyCta && heroEl){
   };
 
   const heroObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { pastHero = !entry.isIntersecting; });
+    // "passou" = o vídeo saiu da tela por cima (não conta enquanto ainda está abaixo)
+    entries.forEach(entry => { pastHero = !entry.isIntersecting && entry.boundingClientRect.top < 0; });
     updateStickyCta();
   }, { threshold: 0 });
   heroObserver.observe(heroEl);
 
   // some na secao de planos e no rodape/CTA final — ja tem CTA proprio ali
-  const zoneEls = [document.getElementById('planos'), document.querySelector('footer')].filter(Boolean);
+  const zoneEls = [document.getElementById('planos'), document.querySelector('.final-cta'), document.querySelector('footer')].filter(Boolean);
   if (zoneEls.length){
     const zoneObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
