@@ -1586,23 +1586,20 @@ p, .section-subtitle, .results-subtitle, .bonus-compact__text{
     </div>
 
     <div class="support-row reveal">
-      <h2 class="section-title" style="color:var(--gold);">Suporte Prioritário</h2>
-      <div class="support-row__icons">
-        <svg viewBox="0 0 32 32" fill="none"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.825.738 5.48 2.025 7.788L0 32l8.425-2.006A15.938 15.938 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0z" fill="#25D366"></path><path d="M22.86 19.34c-.38-.19-2.23-1.1-2.58-1.23-.35-.13-.6-.19-.85.19-.25.38-.97 1.23-1.19 1.48-.22.25-.44.28-.82.09-.38-.19-1.59-.59-3.03-1.87-1.12-1-1.88-2.23-2.1-2.61-.22-.38-.02-.58.17-.77.17-.17.38-.44.57-.66.19-.22.25-.38.38-.63.13-.25.06-.47-.03-.66-.09-.19-.85-2.05-1.16-2.8-.31-.75-.63-.64-.85-.65h-.73c-.25 0-.66.09-1.01.47-.35.38-1.33 1.3-1.33 3.16s1.36 3.66 1.55 3.91c.19.25 2.66 4.07 6.45 5.71.9.39 1.61.62 2.16.8.9.29 1.73.25 2.38.15.73-.11 2.23-.91 2.55-1.8.31-.88.31-1.64.22-1.8-.09-.16-.35-.25-.73-.44z" fill="#fff"></path></svg>
-        <svg viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
-      </div>
+      <h2 class="section-title" style="color:var(--gold);">Por dentro do aplicativo</h2>
     </div>
 
-    <div class="carousel reveal">
-      <div class="carousel__viewport" id="carouselViewport">
-        <!-- slides geradas via JS a partir de SLIDES[] -->
+    <!-- VÍDEO DO APLICATIVO — formato stories (vertical 9:16)
+         ESPAÇO RESERVADO: quando o vídeo chegar, troque o bloco "video-frame__placeholder" por
+         <video class="video-frame__media js-scroll-video" playsinline preload="metadata" poster="..."><source src="assets/..." type="video/mp4"></video>
+         + o botão .video-frame__play, igual aos vídeos acima. -->
+    <div style="margin-bottom:40px;">
+      <div class="video-frame video-frame--stories reveal" id="videoFrameApp">
+        <div class="video-frame__placeholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--text-faint);font-size:14px;">Vídeo do aplicativo em breve</div>
+        <div class="video-frame__corner video-frame__corner--tl"></div>
+        <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
-      <button class="carousel__nav carousel__nav--prev" id="prevSlide" aria-label="Anterior">‹</button>
-      <button class="carousel__nav carousel__nav--next" id="nextSlide" aria-label="Próximo">›</button>
     </div>
-    <div class="carousel__dots" id="carouselDots"></div>
-    <div class="carousel__caption">* prints reais enviados espontaneamente por alunos</div>
 
     <div class="stats-row">
       <div class="stat"><div class="stat__value">+1.500</div><div class="stat__label">Vidas transformadas</div></div>
@@ -2017,11 +2014,13 @@ function goTo(index){
   });
 }
 
-renderSlides();
-goTo(0);
-document.getElementById('prevSlide').addEventListener('click', () => goTo(current - 1));
-document.getElementById('nextSlide').addEventListener('click', () => goTo(current + 1));
-setInterval(() => goTo(current + 1), 5000);
+if (viewport){ // o carrossel de prints saiu da página; só roda se ele voltar
+  renderSlides();
+  goTo(0);
+  document.getElementById('prevSlide').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextSlide').addEventListener('click', () => goTo(current + 1));
+  setInterval(() => goTo(current + 1), 5000);
+}
 
 /* ==========================================================================
    CARROSSEL DE PLANOS (mobile) — trilho com scroll-snap + pontinhos
