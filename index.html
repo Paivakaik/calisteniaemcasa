@@ -2130,7 +2130,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
     </div>
     <div>
       <div class="video-frame video-frame--stories" id="videoFrame1">
-        <video class="video-frame__media js-scroll-video" playsinline preload="none" poster="assets/video-1-poster.webp">
+        <video class="video-frame__media js-scroll-video" playsinline preload="none" data-poster="assets/video-1-poster.webp">
           <source src="assets/video-1.mp4" type="video/mp4">
         </video>
         <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
@@ -2158,7 +2158,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
     <!-- VÍDEO 2 — formato stories (vertical 9:16) -->
     <div style="margin-bottom:40px;">
       <div class="video-frame video-frame--stories" id="videoFrame2">
-        <video class="video-frame__media js-scroll-video" playsinline preload="none" poster="assets/video-2-poster.webp">
+        <video class="video-frame__media js-scroll-video" playsinline preload="none" data-poster="assets/video-2-poster.webp">
           <source src="assets/video-2.mp4" type="video/mp4">
         </video>
         <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
@@ -2175,7 +2175,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
          toca com som quando a visitante aperta o play. -->
     <div style="margin-bottom:40px;">
       <div class="video-frame video-frame--stories video-frame--app reveal" id="videoFrameApp">
-        <video class="video-frame__media js-scroll-video" playsinline preload="none" poster="assets/video-app-poster.webp" aria-label="Tour pelo app Calistenia Delas: 611 exercícios, escolha de nível, vídeo e passo a passo, acesso por e-mail e garantia de 7 dias">
+        <video class="video-frame__media js-scroll-video" playsinline preload="none" data-poster="assets/video-app-poster.webp" aria-label="Tour pelo app Calistenia Delas: 611 exercícios, escolha de nível, vídeo e passo a passo, acesso por e-mail e garantia de 7 dias">
           <source src="assets/video-app.mp4" type="video/mp4">
         </video>
         <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
@@ -2480,6 +2480,24 @@ if (stickyCta && heroEl){
     requestAnimationFrame(updateStickyCta);
   }, { passive: true });
 }
+
+/* ==========================================================================
+   CAPAS DOS VÍDEOS — só baixam quando a pessoa chega perto do vídeo,
+   pra não disputar a internet com a foto do topo ao abrir a página
+   ========================================================================== */
+(function () {
+  var vids = document.querySelectorAll('video[data-poster]');
+  var setPoster = function (v) { v.poster = v.dataset.poster; v.removeAttribute('data-poster'); };
+  if (!('IntersectionObserver' in window)) { vids.forEach(setPoster); return; }
+  var posterObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      setPoster(entry.target);
+      posterObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '600px 0px' });
+  vids.forEach(function (v) { posterObserver.observe(v); });
+})();
 
 /* ==========================================================================
    VÍDEOS — comeca pausado, so toca quando o usuario aperta o play
