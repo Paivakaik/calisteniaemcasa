@@ -28,8 +28,7 @@
 <link rel="icon" type="image/png" sizes="180x180" href="assets/favicon-180.png">
 <link rel="apple-touch-icon" href="assets/favicon-180.png">
 
-<link rel="preload" as="image" href="assets/hero-photo-mobile.webp" fetchpriority="high" media="(max-width:640px)">
-<link rel="preload" as="image" href="assets/hero-photo.webp" fetchpriority="high" media="(min-width:641px)">
+<link rel="preload" as="image" href="assets/hero-photo.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- fontes: carregam sem travar a primeira pintura da tela -->
@@ -231,7 +230,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   z-index:0;
   pointer-events:none;
 }
-.hero__art picture{ display:block; width:100%; height:100%; }
 .hero__art img{
   width:100%;
   height:100%;
@@ -563,23 +561,6 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 
 /* variante "app" — vídeo do app um pouco mais estreito */
 .video-frame--app{ max-width:320px; }
-
-/* botão "Escolha seu plano agora" por cima do vídeo do app (aparece no fim) */
-.video-cta{
-  position:absolute; left:10%; top:52%; width:80%; height:8.2%;
-  z-index:12; display:flex; align-items:center; justify-content:center;
-  border-radius:999px; background:linear-gradient(180deg,#ffe066,#ffbf00);
-  color:#1a1006; font-weight:800; font-size:15px; letter-spacing:.2px; text-decoration:none;
-  box-shadow:0 0 0 0 rgba(255,204,0,.7), 0 10px 24px -6px rgba(255,170,0,.6);
-  animation:video-cta-pulse 1.3s ease-in-out infinite;
-}
-.video-cta[hidden]{ display:none; }
-.video-frame.cta-final .video-frame__play{ opacity:0; pointer-events:none; }
-@keyframes video-cta-pulse{
-  0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(255,204,0,.7), 0 10px 24px -6px rgba(255,170,0,.6); }
-  50%{ transform:scale(1.08); box-shadow:0 0 0 12px rgba(255,204,0,0), 0 14px 30px -6px rgba(255,170,0,.8); }
-}
-@media (prefers-reduced-motion:reduce){ .video-cta{ animation:none; } }
 
 /* ==========================================================================
    6. RESULTADOS / CARROSSEL
@@ -936,9 +917,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 
 .scarcity{
   max-width:640px;
-  margin:0 auto 22px;
+  margin:0 auto 40px;
 }
-.plans-rodape{ text-align:center; margin:14px auto 0; max-width:520px; font-size:12.5px; color:var(--text-faint); line-height:1.5; }
 .scarcity__row{
   display:flex;
   align-items:baseline;
@@ -972,17 +952,8 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   background:linear-gradient(90deg,#ff6600,var(--gold));
   transition:width 3.5s cubic-bezier(.2,.8,.2,1);
 }
-.scarcity__fill.is-filled{ width:93%; }
+.scarcity__fill.is-filled{ width:83%; }
 .scarcity__note{ margin-top:10px; font-size:12.5px; color:var(--text-faint); text-align:center; }
-/* aviso "últimas vagas com este preço" (discreto, acima dos planos) */
-.preco-aviso{ display:flex; align-items:center; justify-content:center; gap:12px; max-width:520px; margin:0 auto; padding:12px 18px;
-  border-radius:14px; border:1px solid rgba(255,205,56,.35); background:linear-gradient(90deg, rgba(255,205,56,.10), rgba(255,140,0,.06)); }
-.preco-aviso__ponto{ flex:none; width:10px; height:10px; border-radius:50%; background:#ff6a00; box-shadow:0 0 0 0 rgba(255,106,0,.6); animation:preco-aviso-pulso 1.6s ease-out infinite; }
-.preco-aviso__texto{ display:flex; flex-direction:column; text-align:left; line-height:1.3; }
-.preco-aviso__texto strong{ color:var(--gold); font-weight:800; font-size:15px; letter-spacing:.01em; }
-.preco-aviso__texto span{ color:var(--text-muted); font-size:12.5px; }
-@keyframes preco-aviso-pulso{ 0%{ box-shadow:0 0 0 0 rgba(255,106,0,.6); } 80%,100%{ box-shadow:0 0 0 10px rgba(255,106,0,0); } }
-@media (prefers-reduced-motion:reduce){ .preco-aviso__ponto{ animation:none; } }
 
 /* ==========================================================================
    10. FAQ
@@ -1902,14 +1873,6 @@ body::before{
 .plan--featured:hover{ transform:scale(1.02) translateY(-6px); border-color:transparent; }
 @media (max-width:819px){ .plan--featured:hover{ transform:translateY(-6px); } }
 .plan--premium{ border-color:rgba(255,205,56,.3); }
-/* etiquetas no topo dos planos (puxam para os planos de ticket maior) */
-.plan__etiqueta{
-  align-self:flex-start; display:inline-flex; align-items:center; gap:6px;
-  padding:5px 12px; border-radius:999px; font-family:var(--font-body);
-  font-weight:800; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; line-height:1.2;
-}
-.plan__etiqueta--vendido{ background:var(--gold-grad); color:#161008; box-shadow:0 8px 20px -8px rgba(255,180,40,.7); }
-.plan__etiqueta--indicado{ background:rgba(255,205,56,.12); color:var(--gold); border:1px solid rgba(255,205,56,.55); }
 .plan__name{ font-size:34px; letter-spacing:.03em; }
 @media (min-width:820px){ .plan__name{ font-size:40px; } }
 .plan__old{ font-size:15px; text-decoration-color:rgba(255,107,107,.7); }
@@ -2077,16 +2040,6 @@ footer{ border-top-color:rgba(255,255,255,.05); }
   .reveal{ filter:none; }
   .scroll-progress{ display:none; }
 }
-
-/* ---------- espaçamento mais compacto entre as partes da página ---------- */
-.section{ padding:64px 0; }
-.section-head{ margin-bottom:36px; }
-.stats-row{ margin-top:40px; }
-@media (max-width:768px){
-  .section{ padding:46px 0; }
-  .section-head{ margin-bottom:26px; }
-  .stats-row{ margin-top:28px; }
-}
 </style>
 </head>
 <body>
@@ -2096,10 +2049,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
      ========================================================================== -->
 <header class="hero" id="topo">
   <div class="hero__art" aria-hidden="true">
-    <picture>
-      <source media="(max-width:640px)" srcset="assets/hero-photo-mobile.webp" width="940" height="941">
-      <img src="assets/hero-photo.webp" alt="" fetchpriority="high" decoding="async" width="1672" height="941">
-    </picture>
+    <img src="assets/hero-photo.webp" alt="" fetchpriority="high" decoding="async">
   </div>
 
   <div class="container hero__grid">
@@ -2213,9 +2163,12 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 <section class="section" id="resultados">
   <div class="container">
     <div class="stars reveal">★★★★★</div>
+    <h2 class="results-main-title reveal">RESULTADOS <span class="gold">REAIS</span></h2>
+    <p class="results-subtitle reveal">NÃO É SÓ SOBRE TREINO. É SOBRE UM AMBIENTE ONDE É <span class="highlight-gold">IMPOSSÍVEL DESISTIR.</span></p>
+
     <div class="before-after-head reveal">
-      <h2 class="results-main-title">ANTES E <span class="gold">DEPOIS</span></h2>
-      <p class="before-after-sub">RESULTADOS REAIS</p>
+      <h3 class="before-after-title">ANTES E DEPOIS</h3>
+      <p class="before-after-sub">A TRANSFORMAÇÃO REAL E COMO ELA ACONTECE</p>
     </div>
 
     <!-- VÍDEO 2 — formato stories (vertical 9:16) -->
@@ -2242,7 +2195,6 @@ footer{ border-top-color:rgba(255,255,255,.05); }
           <source src="assets/video-app.mp4" type="video/mp4">
         </video>
         <button class="video-frame__play" aria-label="Reproduzir vídeo"><span class="video-frame__play-circle"></span></button>
-        <a class="video-cta" id="videoAppCta" href="#planos" hidden>Escolha seu plano agora</a>
         <div class="video-frame__corner video-frame__corner--tl"></div>
         <div class="video-frame__corner video-frame__corner--br"></div>
       </div>
@@ -2319,15 +2271,13 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 <section class="section section--dark" id="planos">
   <div class="container">
     <div class="section-head">
+      <span class="eyebrow">Oferta para novas alunas</span>
       <h2 class="section-title">Escolha sua <em>transformação</em></h2>
+      <p class="section-subtitle">Arraste e escolha seu nível de transformação.</p>
     </div>
 
     <div class="scarcity" id="scarcity">
-      <div class="scarcity__row">
-        <span class="scarcity__label"><span class="scarcity__arrow">▼</span> Restam apenas <strong>7%</strong> das vagas com este preço</span>
-        <span class="scarcity__sold">93% vendido</span>
-      </div>
-      <div class="scarcity__bar"><div class="scarcity__fill" id="scarcityFill"></div></div>
+      <div class="scarcity__note">O conteúdo é liberado imediatamente após o pagamento.</div>
     </div>
 
     <div class="plans-dots" id="plansDots"></div>
@@ -2351,7 +2301,6 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 
       <!-- Growth -->
       <div class="plan plan--featured">
-        <span class="plan__etiqueta plan__etiqueta--vendido">🔥 Mais vendido</span>
         <div class="plan__name">Growth</div>
         <div class="plan__prices">
           <span class="plan__old">R$ 67</span>
@@ -2361,15 +2310,14 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <div class="plan__inherits">Tudo do <strong>Starter</strong> +</div>
         <ul class="plan__list">
           <li>Acesso à comunidade exclusiva</li>
-          <li>Planilha de 60 dias com o treino de cada dia</li>
-          <li>Receitas de chás detox aceleradores</li>
+          <li>Planilha de progressão de 60 dias: uma agenda de treino padrão, com os exercícios indicados para cada dia</li>
+          <li>Receitas secretas de chás detox aceleradores de resultados</li>
         </ul>
         <a href="https://lastlink.com/p/C51A0C3E4/checkout-payment/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o Growth</span><span class="btn__arrow">→</span></a>
       </div>
 
       <!-- Premium -->
       <div class="plan plan--premium">
-        <span class="plan__etiqueta plan__etiqueta--indicado">⭐ Mais indicado</span>
         <div class="plan__name">Premium</div>
         <div class="plan__prices">
           <span class="plan__old">R$ 147</span>
@@ -2379,17 +2327,17 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <div class="plan__inherits">Tudo do <strong>Growth</strong> +</div>
         <ul class="plan__list">
           <li>Planilha de treino personalizada para você</li>
-          <li>Rotina adaptada ao seu objetivo e ao seu tempo</li>
-          <li>Acompanhamento individual com ajustes</li>
+          <li>Rotina semanal adaptada à sua disponibilidade e ao seu objetivo</li>
+          <li>Acompanhamento individual e ajustes no treino</li>
           <li>Orientação alimentar personalizada</li>
-          <li>Suporte exclusivo</li>
+          <li>Suporte exclusivo durante o acompanhamento</li>
+          <li>No Growth, a planilha de 60 dias é uma programação padrão; no Premium, o plano é personalizado para você</li>
         </ul>
         <a href="https://lastlink.com/p/C9E6CBB97/checkout-payment/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
       </div>
     </div>
 
     <div class="plans-note">Pagamento único • Sem mensalidades • Acesso vitalício</div>
-    <p class="plans-rodape">Valor promocional, terminará em breve. O conteúdo é liberado na hora, logo após o pagamento.</p>
   </div>
 </section>
 
@@ -2487,6 +2435,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 
 <footer>
   <p>© 2026 Calistenia Delas. Todos os direitos reservados.</p>
+  <p>Este site não faz parte do site do Facebook ou Facebook Inc.</p>
 </footer>
 
 <!-- CTA fixo no mobile -->
@@ -2624,30 +2573,6 @@ if (scrollVideos.length){
     videoObserver.observe(v);
   });
 }
-
-/* ==========================================================================
-   VÍDEO DO APP — no fim, o botão "Escolha seu plano agora" do vídeo vira
-   clicável (pulsando) e leva até os planos
-   ========================================================================== */
-(function () {
-  const v = document.querySelector('#videoFrameApp video');
-  const cta = document.getElementById('videoAppCta');
-  const frame = document.getElementById('videoFrameApp');
-  if (!v || !cta || !frame) return;
-  const MOMENTO = 36.4; // segundo em que o botão aparece no vídeo
-  const atualizar = () => {
-    const mostrar = v.ended || v.currentTime >= MOMENTO;
-    cta.hidden = !mostrar;
-    frame.classList.toggle('cta-final', mostrar);
-  };
-  ['timeupdate', 'seeked', 'ended', 'play'].forEach((ev) => v.addEventListener(ev, atualizar));
-  cta.addEventListener('click', (e) => {
-    e.preventDefault();
-    v.pause();
-    const planos = document.getElementById('planos');
-    if (planos) planos.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-})();
 
 /* ==========================================================================
    REVEAL — cada bloco/item aparece suavemente conforme rola até ele
