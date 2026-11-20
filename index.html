@@ -936,8 +936,9 @@ button{ font-family:inherit; cursor:pointer; border:none; }
 
 .scarcity{
   max-width:640px;
-  margin:0 auto 40px;
+  margin:0 auto 22px;
 }
+.plans-rodape{ text-align:center; margin:14px auto 0; max-width:520px; font-size:12.5px; color:var(--text-faint); line-height:1.5; }
 .scarcity__row{
   display:flex;
   align-items:baseline;
@@ -2311,9 +2312,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 <section class="section section--dark" id="planos">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">Oferta para novas alunas</span>
       <h2 class="section-title">Escolha sua <em>transformação</em></h2>
-      <p class="section-subtitle">Arraste e escolha seu nível de transformação.</p>
     </div>
 
     <div class="scarcity" id="scarcity">
@@ -2322,7 +2321,6 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <span class="scarcity__sold">93% vendido</span>
       </div>
       <div class="scarcity__bar"><div class="scarcity__fill" id="scarcityFill"></div></div>
-      <div class="scarcity__note">Valor promocional, terminará em breve. O conteúdo é liberado imediatamente após o pagamento.</div>
     </div>
 
     <div class="plans-dots" id="plansDots"></div>
@@ -2356,8 +2354,8 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <div class="plan__inherits">Tudo do <strong>Starter</strong> +</div>
         <ul class="plan__list">
           <li>Acesso à comunidade exclusiva</li>
-          <li>Planilha de progressão de 60 dias: uma agenda de treino padrão, com os exercícios indicados para cada dia</li>
-          <li>Receitas secretas de chás detox aceleradores de resultados</li>
+          <li>Planilha de 60 dias com o treino de cada dia</li>
+          <li>Receitas de chás detox aceleradores</li>
         </ul>
         <a href="https://lastlink.com/p/C51A0C3E4/checkout-payment/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o Growth</span><span class="btn__arrow">→</span></a>
       </div>
@@ -2374,17 +2372,17 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <div class="plan__inherits">Tudo do <strong>Growth</strong> +</div>
         <ul class="plan__list">
           <li>Planilha de treino personalizada para você</li>
-          <li>Rotina semanal adaptada à sua disponibilidade e ao seu objetivo</li>
-          <li>Acompanhamento individual e ajustes no treino</li>
+          <li>Rotina adaptada ao seu objetivo e ao seu tempo</li>
+          <li>Acompanhamento individual com ajustes</li>
           <li>Orientação alimentar personalizada</li>
-          <li>Suporte exclusivo durante o acompanhamento</li>
-          <li>No Growth, a planilha de 60 dias é uma programação padrão; no Premium, o plano é personalizado para você</li>
+          <li>Suporte exclusivo</li>
         </ul>
         <a href="https://lastlink.com/p/C9E6CBB97/checkout-payment/" onclick="window.trackfy&&trackfy('initiate_checkout')" class="btn btn--gold btn--sm btn--arrow plan__cta" style="width:100%"><span>Quero o pack completo</span><span class="btn__arrow">→</span></a>
       </div>
     </div>
 
     <div class="plans-note">Pagamento único • Sem mensalidades • Acesso vitalício</div>
+    <p class="plans-rodape">Valor promocional, terminará em breve. O conteúdo é liberado na hora, logo após o pagamento.</p>
   </div>
 </section>
 
