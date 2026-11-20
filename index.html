@@ -971,7 +971,7 @@ button{ font-family:inherit; cursor:pointer; border:none; }
   background:linear-gradient(90deg,#ff6600,var(--gold));
   transition:width 3.5s cubic-bezier(.2,.8,.2,1);
 }
-.scarcity__fill.is-filled{ width:83%; }
+.scarcity__fill.is-filled{ width:93%; }
 .scarcity__note{ margin-top:10px; font-size:12.5px; color:var(--text-faint); text-align:center; }
 /* aviso "últimas vagas com este preço" (discreto, acima dos planos) */
 .preco-aviso{ display:flex; align-items:center; justify-content:center; gap:12px; max-width:520px; margin:0 auto; padding:12px 18px;
@@ -1868,18 +1868,6 @@ body::before{
   transition:transform .45s var(--ease-out);
 }
 .bonus-compact__item:hover .bonus-compact__icon{ transform:rotate(-6deg) scale(1.08); }
-/* capas dos bônus (as mesmas da área de membros) no lugar dos emojis */
-.bonus-compact__capa{ width:116px; height:65px; padding:0; overflow:hidden; border-radius:10px; border:1px solid rgba(255,205,56,.35); background:#0d0906; }
-.bonus-compact__capa img{ width:100%; height:100%; object-fit:cover; display:block; }
-.bonus-compact__item:hover .bonus-compact__capa{ transform:scale(1.05); }
-@media (max-width:639px){
-  .bonus-compact__item{ align-items:flex-start; gap:14px; padding:14px; }
-  .bonus-compact__capa{ width:108px; height:61px; }
-  .bonus-compact .bonus-compact__price{ position:absolute; left:19px; top:56px; padding:2px 7px; font-size:9px; letter-spacing:.08em; background:rgba(13,9,6,.88); }
-  .bonus-compact__title{ font-size:15px; line-height:1.2; }
-  .bonus-compact__text{ font-size:12.5px; line-height:1.4; }
-}
-@media (min-width:640px){ .bonus-compact__capa{ width:160px; height:90px; border-radius:12px; } }
 .bonus-compact__title{ font-family:var(--font-body); font-weight:700; text-transform:none; font-size:15.5px; letter-spacing:-.01em; }
 .bonus-compact__price{
   font-family:var(--font-body); font-weight:700; font-size:11px; letter-spacing:.1em;
@@ -2274,7 +2262,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 
     <div class="bonus-compact">
       <div class="bonus-compact__item">
-        <div class="bonus-compact__icon bonus-compact__capa"><img src="assets/bonus/formula-da-planche.webp" alt="Capa do bônus A fórmula da planche" width="480" height="270" loading="lazy" decoding="async"></div>
+        <div class="bonus-compact__icon">📊</div>
         <div class="bonus-compact__body">
           <div class="bonus-compact__title">A fórmula da planche</div>
           <p class="bonus-compact__text">Passo a passo para sair do zero ao controle total do seu corpo.</p>
@@ -2282,7 +2270,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <span class="bonus-compact__price">Grátis</span>
       </div>
       <div class="bonus-compact__item">
-        <div class="bonus-compact__icon bonus-compact__capa"><img src="assets/bonus/desafio-21-dias.webp" alt="Capa do bônus Desafio 21 dias" width="480" height="270" loading="lazy" decoding="async"></div>
+        <div class="bonus-compact__icon">📅</div>
         <div class="bonus-compact__body">
           <div class="bonus-compact__title">Desafio 21 dias</div>
           <p class="bonus-compact__text">21 dias de treinos intensos com peso corporal, sem academia.</p>
@@ -2290,7 +2278,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <span class="bonus-compact__price">Grátis</span>
       </div>
       <div class="bonus-compact__item">
-        <div class="bonus-compact__icon bonus-compact__capa"><img src="assets/bonus/protocolo-metabolico.webp" alt="Capa do bônus Protocolo metabólico" width="480" height="270" loading="lazy" decoding="async"></div>
+        <div class="bonus-compact__icon">🔥</div>
         <div class="bonus-compact__body">
           <div class="bonus-compact__title">Protocolo metabólico</div>
           <p class="bonus-compact__text">Rotina inspirada em atletas para acelerar seu metabolismo.</p>
@@ -2298,7 +2286,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <span class="bonus-compact__price">Grátis</span>
       </div>
       <div class="bonus-compact__item">
-        <div class="bonus-compact__icon bonus-compact__capa"><img src="assets/bonus/coluna-forte.webp" alt="Capa do bônus Coluna forte" width="480" height="270" loading="lazy" decoding="async"></div>
+        <div class="bonus-compact__icon">🦴</div>
         <div class="bonus-compact__body">
           <div class="bonus-compact__title">Coluna forte</div>
           <p class="bonus-compact__text">Guia para aliviar dores nas costas e melhorar a postura.</p>
@@ -2306,7 +2294,7 @@ footer{ border-top-color:rgba(255,255,255,.05); }
         <span class="bonus-compact__price">Grátis</span>
       </div>
       <div class="bonus-compact__item">
-        <div class="bonus-compact__icon bonus-compact__capa"><img src="assets/bonus/articulacoes-fortes.webp" alt="Capa do bônus Articulações fortes" width="480" height="270" loading="lazy" decoding="async"></div>
+        <div class="bonus-compact__icon">🦵</div>
         <div class="bonus-compact__body">
           <div class="bonus-compact__title">Articulações fortes</div>
           <p class="bonus-compact__text">Proteja joelhos, ombros e coluna treinando sem dor.</p>
@@ -2329,11 +2317,12 @@ footer{ border-top-color:rgba(255,255,255,.05); }
     </div>
 
     <div class="scarcity" id="scarcity">
-      <div class="preco-aviso">
-        <span class="preco-aviso__ponto" aria-hidden="true"></span>
-        <span class="preco-aviso__texto"><strong>Últimas vagas com este preço</strong><span>Valor promocional, terminará em breve.</span></span>
+      <div class="scarcity__row">
+        <span class="scarcity__label"><span class="scarcity__arrow">▼</span> Restam apenas <strong>7%</strong> das vagas com este preço</span>
+        <span class="scarcity__sold">93% vendido</span>
       </div>
-      <div class="scarcity__note">O conteúdo é liberado imediatamente após o pagamento.</div>
+      <div class="scarcity__bar"><div class="scarcity__fill" id="scarcityFill"></div></div>
+      <div class="scarcity__note">Valor promocional, terminará em breve. O conteúdo é liberado imediatamente após o pagamento.</div>
     </div>
 
     <div class="plans-dots" id="plansDots"></div>
@@ -2493,7 +2482,6 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 
 <footer>
   <p>© 2026 Calistenia Delas. Todos os direitos reservados.</p>
-  <p>Este site não faz parte do site do Facebook ou Facebook Inc.</p>
 </footer>
 
 <!-- CTA fixo no mobile -->
