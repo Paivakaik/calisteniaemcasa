@@ -2040,6 +2040,12 @@ footer{ border-top-color:rgba(255,255,255,.05); }
   .reveal{ filter:none; }
   .scroll-progress{ display:none; }
 }
+.foot-seals{display:grid;gap:10px;max-width:760px;margin:0 auto 18px}
+.foot-seal{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 14px;color:#f1ede6;text-decoration:none;background:rgba(255,255,255,.03)}
+.foot-seal svg{flex:0 0 20px;color:#3ecf8e}
+.foot-seal span{font-size:12.5px;opacity:.8;line-height:1.4}
+.foot-seal b{display:block;font-size:14px;opacity:1}
+@media(min-width:760px){.foot-seals{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -2434,6 +2440,11 @@ footer{ border-top-color:rgba(255,255,255,.05); }
 </section>
 
 <footer>
+  <div class="foot-seals">
+    <div class="foot-seal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Site seguro</b>Conexão criptografada SSL</span></div>
+    <div class="foot-seal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Pagamento seguro</b>Processado por plataforma de pagamento</span></div>
+    <a class="foot-seal" href="https://transparencyreport.google.com/safe-browsing/search?url=calisteniaemcasa.vercel.app&amp;hl=pt-BR" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span><b>Verificado no Google</b>Conferir no Safe Browsing</span></a>
+  </div>
   <p>© 2026 Calistenia Delas. Todos os direitos reservados.</p>
   <p>Este site não faz parte do site do Facebook ou Facebook Inc.</p>
 </footer>
